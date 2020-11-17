@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- This file is generated automatically! Do not edit! -->
+
+    <groupId>org.cef</groupId>
+    <artifactId>jcef-api</artifactId>
+    <version>{version}</version>
+
+    <name>JCef API</name>
+    <description>This package provides a Java API for the Chromium Embedded Framework</description>
+    <url>https://github.com/chromiumembedded/java-cef</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <licenses>
+        <license>
+            <name>BSD License</name>
+            <url>https://github.com/chromiumembedded/java-cef/blob/master/LICENSE.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>jcef</id>
+            <name>JCef Team</name>
+            <url>https://github.com/chromiumembedded/java-cef</url>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <id>friwidev</id>
+            <name>FriwiDev</name>
+            <email>friwidev@gmail.com</email>
+            <url>https://github.com/FriwiDev</url>
+            <roles>
+                <role>maven maintainer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <issueManagement>
+        <system>JCEF Issue Tracker</system>
+        <url>https://bitbucket.org/chromiumembedded/java-cef/issues</url>
+    </issueManagement>
+
+    <scm>
+        <connection>scm:git:https://github.com/chromiumembedded/java-cef</connection>
+        <developerConnection>scm:git:https://github.com/chromiumembedded/java-cef</developerConnection>
+        <tag>{ref}</tag>
+        <url>https://github.com/chromiumembedded/java-cef</url>
+    </scm>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.jogamp.gluegen</groupId>
+            <artifactId>gluegen-rt</artifactId>
+            <version>{jogamp-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jogamp.jogl</groupId>
+            <artifactId>jogl-all</artifactId>
+            <version>{jogamp-version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.4</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <additionalparam>-Xdoclint:none</additionalparam>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.0.4</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

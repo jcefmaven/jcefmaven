@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  jcef-maven:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      cache_from:
+        - jcef/jcef-maven
+    image: jcef/jcef-maven
+    environment:
+      - WORKSPACE_DIR=data
+      - CRAWL_INTERVAL_MS=12000000
+    volumes:
+      - ./data:/app/data

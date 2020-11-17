@@ -1,0 +1,4 @@
+{
+  "workspaceDir": "{{WORKSPACE_DIR}}",
+  "crawlInterval": "{{CRAWL_INTERVAL_MS}}"
+}
