@@ -21,6 +21,7 @@ using the jcef-bundle-maven-plugin.
 |----|-------|-----|
 |**[Fat jar](doc/FAT_JAR.md)**|Fat jar is platform independent.|Not MacOSX compatible and 10 second bundle extraction time on first run. Fat jar for all platforms has ~320MB.|
 |**[Bundle Plugin](doc/BUNDLE_PLUGIN.md)**|MacOSX compatible and no extraction time. A lot smaller (~80MB).|Bundles are platform dependent. Testing without exporting not possible on MacOSX.|
+
 We recommend using the bundle plugin option.
 
 ### Repository ###

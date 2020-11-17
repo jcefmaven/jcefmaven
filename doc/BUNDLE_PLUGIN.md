@@ -196,6 +196,7 @@ Goal: ``macosx64``
 ``bundleCopyright``|-|false|Copyright information for this bundle (e.g. &copy; Fritz Windisch)|
 ``jvmOptions[]``|-|false|An array of options to pass to the JVM. Can not contain a new ``java.library.path``, the existing path points to the classpath (relocate your libraries with ``Y/X.dylib:X.dylib``).|
 ``jvmArgs[]``|-|false|An array of arguments to pass to the embedded program|
+
 Tip: You can also copy a new ``CefIcons.icns`` file into your bundle to change the default CEF icon using a relocation.
 
 ##### Performing the build #####
