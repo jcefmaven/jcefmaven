@@ -1,0 +1,6 @@
+{
+  "jcef_url": "{jcef_url}",
+  "release_tag": "{release_tag}",
+  "release_url": "{release_url}",
+  "platform": "{platform}"
+}

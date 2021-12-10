@@ -1,15 +1,13 @@
 #!/bin/bash
 
-if [ ! $# -eq 4 ]
+if [ ! $# -eq 2 ]
   then
-    echo "Usage: ./fill_template.sh <template> <dest> <platform> <release_tag>"
+    echo "Usage: ./fill_template.sh <template> <dest>"
     echo ""
     echo "template: the template file"
     echo "dest: the destination file"
-    echo "platform: name of the platform to release for (e.g. linux-i386)"
-    echo "release_tag: the tag of the release (jcef+X+cef+Y)"
     exit 1
 fi
 
 #Read file, replace and write to target
-sed "s|{platform}|$3|;s|{release_tag}|$4|" $1 > $2
+sed "s|{platform}|$platform|;s|{release_tag}|$release_tag|;s|{release_url}|$release_url|;s|{jcef_url}|$jcef_url|;s|{release_download_url}|$release_download_url|" $1 > $2

@@ -1,0 +1,10 @@
+version: "3"
+services:
+  generate-artifacts:
+    container_name: generate-artifacts
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./out:/jcefout
+    command: "./scripts/generate_maven_builds.sh ${BUILD_META_URL}"
