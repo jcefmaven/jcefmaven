@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- This file is generated automatically! Do not edit! -->
+    <!-- For further information, please refer to https://github.com/jcefmaven/jcefmaven -->
+
+    <groupId>org.cef</groupId>
+    <artifactId>jcef-natives-{platform}</artifactId>
+    <version>{release_tag}</version>
+
+    <name>JCef natives for {platform}</name>
+    <description>This package provides natives for the Java Chromium Embedded Framework</description>
+    <url>https://bitbucket.org/chromiumembedded/java-cef/</url>
+
+    <licenses>
+        <license>
+            <name>BSD License</name>
+            <url>https://bitbucket.org/chromiumembedded/java-cef/src/master/LICENSE.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>jcef</id>
+            <name>JCef Team</name>
+            <url>https://bitbucket.org/chromiumembedded/java-cef/</url>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <id>friwidev</id>
+            <name>FriwiDev</name>
+            <email>friwidev@gmail.com</email>
+            <url>https://github.com/FriwiDev</url>
+            <roles>
+                <role>providing binaries</role>
+                <role>maven maintainer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/jcefmaven/jcefmaven/issues</url>
+    </issueManagement>
+
+    <scm>
+        <connection>scm:git:https://bitbucket.org/chromiumembedded/java-cef</connection>
+        <developerConnection>scm:git:https://bitbucket.org/chromiumembedded/java-cef</developerConnection>
+        <tag>HEAD</tag>
+        <url>https://bitbucket.org/chromiumembedded/java-cef</url>
+    </scm>
+</project>
