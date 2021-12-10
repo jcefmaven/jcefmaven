@@ -11,7 +11,7 @@ if [ ! $# -eq 3 ]
 fi
 
 #CD to dir of this script
-cd "$( dirname "$0" )"
+cd "$( dirname "$0" )" && cd out
 
 #Print build meta location
 echo "Initializing for build from $1..."
