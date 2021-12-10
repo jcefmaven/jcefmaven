@@ -22,7 +22,7 @@ export $(curl -s -L $1 | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.
 #Move artifacts to a non-protected folder
 rm -rf upload
 mkdir upload
-mv out/* upload
+cp out/* upload/
 cd upload
 
 echo "Uploading maven artifacts for $release_tag..."
