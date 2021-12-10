@@ -11,13 +11,19 @@ if [ ! $# -eq 3 ]
 fi
 
 #CD to dir of this script
-cd "$( dirname "$0" )" && cd out
+cd "$( dirname "$0" )"
 
 #Print build meta location
 echo "Initializing for build from $1..."
 
 #Download build_meta.json and import to local environment
 export $(curl -s -L $1 | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]")
+
+#Move artifacts to a non-protected folder
+rm -rf upload
+mkdir upload
+mv out/* upload
+cd upload
 
 echo "Uploading maven artifacts for $release_tag..."
 
