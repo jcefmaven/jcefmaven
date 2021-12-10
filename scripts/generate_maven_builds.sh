@@ -28,21 +28,57 @@ echo "# Creating JCEF API for all platforms     #"
 echo "###########################################"
 ./generate_jcef_api.sh
 
-#Macos amd64
-echo "###########################################"
-echo "# Creating native build for macosx-amd64  #"
-echo "###########################################"
-./generate_natives.sh macos64 macosx-amd64 $release_tag $download_url_macosx_amd64
-
 #Linux amd64
 echo "###########################################"
 echo "# Creating native build for linux-amd64   #"
 echo "###########################################"
 ./generate_natives.sh linux64 linux-amd64 $release_tag $download_url_linux_amd64
 
+#Linux arm64
+echo "###########################################"
+echo "# Creating native build for linux-arm64   #"
+echo "###########################################"
+./generate_natives.sh linux64 linux-arm64 $release_tag $download_url_linux_arm64
+
+#Linux i386
+echo "###########################################"
+echo "# Creating native build for linux-i386    #"
+echo "###########################################"
+./generate_natives.sh linux32 linux-i386 $release_tag $download_url_linux_i386
+
+#Linux arm
+echo "###########################################"
+echo "# Creating native build for linux-arm     #"
+echo "###########################################"
+./generate_natives.sh linux32 linux-arm $release_tag $download_url_linux_arm
+
+#Macos amd64
+echo "###########################################"
+echo "# Creating native build for macosx-amd64  #"
+echo "###########################################"
+./generate_natives.sh macos64 macosx-amd64 $release_tag $download_url_macosx_amd64
+
+#Macos arm64
+echo "###########################################"
+echo "# Creating native build for macosx-arm64  #"
+echo "###########################################"
+./generate_natives.sh macos64 macosx-arm64 $release_tag $download_url_macosx_arm64
+
 #Windows amd64
 echo "###########################################"
 echo "# Creating native build for windows-amd64 #"
 echo "###########################################"
 ./generate_natives.sh win64 windows-amd64 $release_tag $download_url_windows_amd64
+
+#Windows arm64
+echo "###########################################"
+echo "# Creating native build for windows-arm64 #"
+echo "###########################################"
+./generate_natives.sh win64 windows-arm64 $release_tag $download_url_windows_arm64
+
+#Windows i386
+echo "###########################################"
+echo "# Creating native build for windows-i386  #"
+echo "###########################################"
+./generate_natives.sh win32 windows-i386 $release_tag $download_url_windows_i386
 

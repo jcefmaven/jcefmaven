@@ -29,4 +29,16 @@ echo "Uploading maven artifacts for $release_tag..."
 
 mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-api-$release_tag.pom -Dfile=jcef-api-$release_tag.jar -Djavadoc=jcef-api-$release_tag-javadoc.jar -Dsources=jcef-api-$release_tag-sources.jar
 
+mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-linux-amd64-$release_tag.pom -Dfile=jcef-natives-linux-amd64-$release_tag.jar
+mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-linux-arm64-$release_tag.pom -Dfile=jcef-natives-linux-arm64-$release_tag.jar
+mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-linux-i386-$release_tag.pom -Dfile=jcef-natives-linux-i386-$release_tag.jar
+mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-linux-arm-$release_tag.pom -Dfile=jcef-natives-linux-arm-$release_tag.jar
+
+mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-macosx-amd64-$release_tag.pom -Dfile=jcef-natives-macosx-amd64-$release_tag.jar
+mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-macosx-arm64-$release_tag.pom -Dfile=jcef-natives-macosx-arm64-$release_tag.jar
+
+mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-windows-amd64-$release_tag.pom -Dfile=jcef-natives-windows-amd64-$release_tag.jar
+mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-windows-arm64-$release_tag.pom -Dfile=jcef-natives-windows-arm64-$release_tag.jar
+mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-windows-i386-$release_tag.pom -Dfile=jcef-natives-windows-i386-$release_tag.jar
+
 echo "Done uploading maven artifacts!"
