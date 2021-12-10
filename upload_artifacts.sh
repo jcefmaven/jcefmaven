@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ ! $# -eq 2 ]
+if [ ! $# -eq 1 ]
   then
     echo "Usage: ./upload_artifacts.sh <build_meta_url>"
     echo ""
