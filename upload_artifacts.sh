@@ -28,7 +28,7 @@ cd upload
 echo "Uploading maven artifacts for $release_tag..."
 
 mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-api-$release_tag.pom -Dfile=jcef-api-$release_tag.jar
-mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-api-$release_tag.pom -Dfile=jcef-api-$release_tag-sources.jar -Dclassifier=sources
-mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-api-$release_tag.pom -Dfile=jcef-api-$release_tag-javadoc.jar -Dclassifier=javadoc
+mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-api-$release_tag.pom -Dfile=jcef-api-$release_tag-sources.jar -Dclassifier=sources -DgeneratePom=false
+mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-api-$release_tag.pom -Dfile=jcef-api-$release_tag-javadoc.jar -Dclassifier=javadoc -DgeneratePom=false
 
 echo "Done uploading maven artifacts!"
