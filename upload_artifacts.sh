@@ -13,6 +13,10 @@ fi
 #CD to dir of this script
 cd "$( dirname "$0" )"
 
+echo "########################################################################"
+echo "# Upload errors can be ignored when the artifact is already published! #"
+echo "########################################################################"
+
 #Print build meta location
 echo "Initializing for build from $1..."
 
