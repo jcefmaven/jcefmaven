@@ -54,4 +54,17 @@
         <tag>HEAD</tag>
         <url>https://bitbucket.org/chromiumembedded/java-cef</url>
     </scm>
+    
+    <dependencies>
+        <dependency>
+            <groupId>me.friwi</groupId>
+            <artifactId>jogl-all</artifactId>
+            <version>{jogl_build}</version>
+        </dependency>
+        <dependency>
+            <groupId>me.friwi</groupId>
+            <artifactId>gluegen-rt</artifactId>
+            <version>{jogl_build}</version>
+        </dependency>
+    </dependencies>
 </project>

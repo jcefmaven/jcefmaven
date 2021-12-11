@@ -7,14 +7,19 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PackageDownloader {
+    private static final Logger LOGGER = Logger.getLogger(PackageDownloader.class.getName());
+
     //Do not waste your time on these credentials.
     //Its a PAT that can only read packages. If you want to see them too,
     //go here: https://github.com/orgs/jcefmaven/packages ;)
@@ -23,6 +28,8 @@ public class PackageDownloader {
     private static final String TOKEN = new String(
             Base64.getDecoder().decode("Z2hwX0JWblZMMmlpWG9sR2VneHBRYWZZeUVCUnlTOWl3djJ1UHJGag=="), StandardCharsets.UTF_8);
     private static final String DOWNLOAD_URL = "https://maven.pkg.github.com/jcefmaven/jcefmaven/me/friwi/" +
+            "jcef-natives-{platform}/{tag}/jcef-natives-{platform}-{tag}.jar";
+    private static final String FALLBACK_DOWNLOAD_URL = "https://repo.maven.apache.org/maven2/me/friwi/" +
             "jcef-natives-{platform}/{tag}/jcef-natives-{platform}-{tag}.jar";
 
     private static final int BUFFER_SIZE = 16*1024;
@@ -40,11 +47,27 @@ public class PackageDownloader {
         URL url = new URL(DOWNLOAD_URL
                 .replace("{platform}", platform.getIdentifier())
                 .replace("{tag}", info.getReleaseTag()));
-        URLConnection uc = url.openConnection();
+        HttpURLConnection uc = (HttpURLConnection) url.openConnection();
         String userpass = USER + ":" + TOKEN;
         String basicAuth = "Basic " + new String(Base64.getEncoder().encode(userpass.getBytes()), StandardCharsets.UTF_8);
         uc.setRequestProperty ("Authorization", basicAuth);
-        InputStream in = uc.getInputStream();
+        InputStream in = null;
+        try {
+            in = uc.getInputStream();
+        }catch (IOException e){
+            //Ignore error, will try fallback in follow up code
+            uc.disconnect();
+        }
+        if(uc.getResponseCode()!=200){
+            //Error while requesting from github, use maven central instead
+            //(only accept code 200 to make sure that there is no partial response downloaded, like a redirection)
+            LOGGER.log(Level.WARNING, "Requesting from sonatype due to "+uc.getResponseCode()+" from github");
+            url = new URL(FALLBACK_DOWNLOAD_URL
+                    .replace("{platform}", platform.getIdentifier())
+                    .replace("{tag}", info.getReleaseTag()));
+            uc = (HttpURLConnection) url.openConnection();
+            in = uc.getInputStream();
+        }
         long length = uc.getContentLengthLong();
         //Transfer data
         FileOutputStream fos = new FileOutputStream(destination);
@@ -66,5 +89,6 @@ public class PackageDownloader {
         //Cleanup
         fos.close();
         in.close();
+        uc.disconnect();
     }
 }

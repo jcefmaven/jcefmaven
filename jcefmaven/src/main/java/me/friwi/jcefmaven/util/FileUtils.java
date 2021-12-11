@@ -1,4 +1,4 @@
-package me.friwi.jcefmaven.utils;
+package me.friwi.jcefmaven.util;
 
 import java.io.File;
 import java.util.Objects;

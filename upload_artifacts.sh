@@ -25,7 +25,13 @@ mkdir upload
 cp out/* upload/
 cd upload
 
+#Set JOGL information (also set in scripts/generate_maven_builds.sh!)
+export jogl_build=v2.4.0-rc-20210111
+
 echo "Uploading maven artifacts for $release_tag..."
+
+mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jogl-all-$jogl_build.pom -Dfile=jogl-all-$jogl_build.jar
+mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=gluegen-rt-$jogl_build.pom -Dfile=gluegen-rt-$jogl_build.jar
 
 mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-api-$release_tag.pom -Dfile=jcef-api-$release_tag.jar -Djavadoc=jcef-api-$release_tag-javadoc.jar -Dsources=jcef-api-$release_tag-sources.jar
 

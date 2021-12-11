@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- This file is generated automatically! Do not edit! -->
+    <!-- For further information, please refer to https://github.com/jcefmaven/jcefmaven -->
+
+    <groupId>me.friwi</groupId>
+    <artifactId>gluegen-rt</artifactId>
+    <version>{jogl_build}</version>
+
+    <packaging>jar</packaging>
+    <name>GlueGen Runtime</name>
+    <description>JNI binding generator (runtime)</description>
+    <url>http://jogamp.org/gluegen/www/</url>
+    
+    <!-- gluegen/pom.in -->
+
+    <scm>
+      <url>http://jogamp.org/git/?p=gluegen.git/</url>
+      <connection>scm:git:http://jogamp.org/git/gluegen.git/</connection>
+      <developerConnection>scm:git:http://jogamp.org/git/gluegen.git/</developerConnection>
+    </scm>
+
+    <licenses>
+      <license>
+        <name>BSD-2 License</name>
+        <url>http://www.opensource.org/licenses/BSD-2-Clause</url>
+      </license>
+      <license>
+        <name>BSD-3 License</name>
+        <url>http://www.opensource.org/licenses/BSD-3-Clause</url>
+      </license>
+      <license>
+        <name>BSD-4 License</name>
+        <url>http://www.spdx.org/licenses/BSD-4-Clause</url>
+      </license>
+    </licenses>
+
+    <developers>
+      <developer>
+        <id>sgothel</id>
+        <name>Sven Gothel</name>
+        <email>sgothel@jausoft.com</email>
+        <url>http://blog.jausoft.com</url>
+      </developer>
+    </developers>
+
+    <issueManagement>
+      <url>http://jogamp.org/bugzilla/</url>
+      <system>Bugzilla</system>
+    </issueManagement>
+</project>

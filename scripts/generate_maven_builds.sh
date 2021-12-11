@@ -20,7 +20,23 @@ rm -rf /jcefout/*
 #Download build_meta.json and import to local environment
 export $(curl -s -L $1 | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]")
 
+#Set JOGL information (also set in upload_artifacts.sh!)
+export jogl_build=v2.4.0-rc-20210111
+export jogl_download=https://jogamp.org/deployment/$jogl_build/jar #Without terminating /!
+
 echo "Creating maven artifacts for $release_tag..."
+
+#jogl-all
+echo "###########################################"
+echo "# Creating jogl for all platforms         #"
+echo "###########################################"
+./generate_jogl.sh jogl-all
+
+#gluegen-rt
+echo "###########################################"
+echo "# Creating gluegen-rt for all platforms   #"
+echo "###########################################"
+./generate_jogl.sh gluegen-rt
 
 #API
 echo "###########################################"

@@ -37,13 +37,13 @@ echo "Building package..."
 rm -f compile.sh compile.bat README.txt run.sh run.bat
 if [ "$1" == "macos64" ] ; then
   mv bin/jcef_app.app/Contents/Frameworks/* .
-  mv bin/jcef_app.app/Contents/Java/jogl*.jar .
-  mv bin/jcef_app.app/Contents/Java/gluegen*.jar .
+#  mv bin/jcef_app.app/Contents/Java/jogl*.jar .
+#  mv bin/jcef_app.app/Contents/Java/gluegen*.jar .
   mv bin/jcef_app.app/Contents/Java/libjcef.dylib .
 else
   mv bin/lib/$1/* .
-  mv bin/jogl*.jar .
-  mv bin/gluegen*.jar .
+#  mv bin/jogl*.jar .
+#  mv bin/gluegen*.jar .
 fi
 rm -rf bin docs tests
 

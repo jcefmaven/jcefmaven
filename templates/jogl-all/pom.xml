@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- This file is generated automatically! Do not edit! -->
+    <!-- For further information, please refer to https://github.com/jcefmaven/jcefmaven -->
+
+    <groupId>me.friwi</groupId>
+    <artifactId>jogl-all</artifactId>
+    <version>{jogl_build}</version>
+
+    <packaging>jar</packaging>
+    <name>JOGL</name>
+    <description>Java Binding for the OpenGL API</description>
+    <url>http://jogamp.org/jogl/www/</url>
+
+    <!-- jogl/pom.in -->
+
+    <licenses>
+      <license>
+        <name>BSD-2 License</name>
+        <url>http://www.opensource.org/licenses/BSD-2-Clause</url>
+      </license>
+      <license>
+        <name>BSD-3 License</name>
+        <url>http://www.opensource.org/licenses/BSD-3-Clause</url>
+      </license>
+      <license>
+        <name>SGI Free Software License B</name>
+        <url>http://oss.sgi.com/projects/FreeB</url>
+      </license>
+      <license>
+        <name>Apache License Version 2.0</name>
+        <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+      </license>
+      <license>
+        <name>Apache License Version 1.1</name>
+        <url>http://www.apache.org/licenses/LICENSE-1.1</url>
+      </license>
+      <license>
+        <name>Ubuntu Font Licence 1.0</name>
+        <url>http://font.ubuntu.com/ufl/ubuntu-font-licence-1.0.txt</url>
+      </license>
+    </licenses>
+
+    <scm>
+      <url>http://jogamp.org/git/?p=jogl.git/</url>
+      <connection>scm:git:http://jogamp.org/git/jogl.git/</connection>
+      <developerConnection>scm:git:http://jogamp.org/git/jogl.git/</developerConnection>
+    </scm>
+
+    <developers>
+      <developer>
+        <id>sgothel</id>
+        <name>Sven Gothel</name>
+        <email>sgothel@jausoft.com</email>
+        <url>http://blog.jausoft.com</url>
+      </developer>
+    </developers>
+
+    <issueManagement>
+      <url>http://jogamp.org/bugzilla/</url>
+      <system>Bugzilla</system>
+    </issueManagement>
+</project>

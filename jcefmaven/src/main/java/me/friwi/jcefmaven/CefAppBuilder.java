@@ -4,13 +4,15 @@ import me.friwi.jcefmaven.check.CefInstallationChecker;
 import me.friwi.jcefmaven.extract.TarGzExtractor;
 import me.friwi.jcefmaven.fetch.PackageClasspathStreamer;
 import me.friwi.jcefmaven.fetch.PackageDownloader;
+import me.friwi.jcefmaven.init.CefInitializationException;
+import me.friwi.jcefmaven.init.CefInitializer;
 import me.friwi.jcefmaven.macos.UnquarantineUtil;
 import me.friwi.jcefmaven.platform.EnumPlatform;
 import me.friwi.jcefmaven.platform.UnsupportedPlatformException;
 import me.friwi.jcefmaven.progress.ConsoleProgressHandler;
 import me.friwi.jcefmaven.progress.EnumProgress;
 import me.friwi.jcefmaven.progress.IProgressHandler;
-import me.friwi.jcefmaven.utils.FileUtils;
+import me.friwi.jcefmaven.util.FileUtils;
 import me.friwi.jcefmaven.version.CefBuildInfo;
 import org.cef.CefApp;
 import org.cef.CefSettings;
@@ -36,6 +38,10 @@ public class CefAppBuilder {
     private IProgressHandler progressHandler;
     private List<String> jcefArgs;
     private CefSettings cefSettings;
+
+    private CefApp instance = null;
+    private boolean building = false;
+    private final Object lock = new Object();
 
     public CefAppBuilder() {
         installDir = DEFAULT_INSTALL_DIR;
@@ -69,7 +75,24 @@ public class CefAppBuilder {
         return cefSettings;
     }
 
-    public CefApp build() throws IOException, UnsupportedPlatformException {
+    public CefApp build() throws IOException, UnsupportedPlatformException, InterruptedException, CefInitializationException {
+        //Check if we already have built an instance
+        if(this.instance!=null){
+            return this.instance;
+        }
+        //Check if we are in the process of building an instance
+        synchronized (lock) {
+            if (building) {
+                //Check if instance was not created in the meantime
+                //to prevent race conditions
+                if (this.instance == null){
+                    //Wait until building completed on another thread
+                    lock.wait();
+                }
+                return this.instance;
+            }
+        }
+        this.building = true;
         this.progressHandler.handleProgress(EnumProgress.LOCATING, EnumProgress.NO_ESTIMATION);
         boolean installOk = CefInstallationChecker.checkInstallation(this.installDir);
         if(!installOk){
@@ -123,8 +146,13 @@ public class CefAppBuilder {
             }
         }
         this.progressHandler.handleProgress(EnumProgress.INITIALIZING, EnumProgress.NO_ESTIMATION);
-
-        this.progressHandler.handleProgress(EnumProgress.INITIALIZED, EnumProgress.NO_ESTIMATION);
-        return null;
+        synchronized (lock) {
+            //Setting the instance has to occur in the synchronized block
+            //to prevent race conditions
+            this.instance = CefInitializer.initialize(this.installDir, this.jcefArgs, this.cefSettings);
+            this.progressHandler.handleProgress(EnumProgress.INITIALIZED, EnumProgress.NO_ESTIMATION);
+            lock.notifyAll();
+        }
+        return this.instance;
     }
 }
