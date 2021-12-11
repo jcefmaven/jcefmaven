@@ -4,12 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- This file is generated automatically! Do not edit! -->
-    <!-- For further information, please refer to https://github.com/jcefmaven/jcefmaven -->
-
     <groupId>me.friwi</groupId>
     <artifactId>jcefmaven</artifactId>
-    <version>{release_tag}</version>
+    <version>jcef-ae6912a+cef-95.7.14+g9f72f35+chromium-95.0.4638.69</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -20,7 +17,7 @@
         <dependency>
             <groupId>me.friwi</groupId>
             <artifactId>jcef-api</artifactId>
-            <version>{release_tag}</version>
+            <version>jcef-ae6912a+cef-95.7.14+g9f72f35+chromium-95.0.4638.69</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
