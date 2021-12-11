@@ -10,6 +10,7 @@ public class FileUtils {
 
     public static void deleteDir(File dir){
         Objects.requireNonNull(dir, "dir cannot be null");
+        if(!dir.exists())return;
         if(dir.isDirectory()){
             for(File f : Objects.requireNonNull(dir.listFiles(), "Could not read contents of "+dir.getAbsolutePath())){
                 deleteDir(f);
