@@ -44,6 +44,12 @@ echo "# Creating JCEF API for all platforms     #"
 echo "###########################################"
 ./generate_jcef_api.sh
 
+#jcefmaven
+echo "###########################################"
+echo "# Creating jcefmaven for all platforms    #"
+echo "###########################################"
+./generate_jcefmaven.sh
+
 #Linux amd64
 echo "###########################################"
 echo "# Creating native build for linux-amd64   #"

@@ -2,7 +2,7 @@
 FROM debian:bookworm-slim
 
 #Required packages
-ENV TOOLS ca-certificates curl jq zip unzip git
+ENV TOOLS ca-certificates curl jq zip unzip git openjdk-11-jdk maven
 
 #Step 2: Install tools
 RUN apt-get -q update && \
@@ -11,5 +11,6 @@ RUN apt-get -q update && \
 #Copy scipts, sources and templates
 COPY scripts scripts
 COPY templates templates
+COPY jcefmaven jcefmaven
 RUN chmod +x scripts/*
 

@@ -39,6 +39,8 @@ mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=gluegen-rt-$jo
 
 mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-api-$release_tag.pom -Dfile=jcef-api-$release_tag.jar -Djavadoc=jcef-api-$release_tag-javadoc.jar -Dsources=jcef-api-$release_tag-sources.jar
 
+mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcefmaven-$release_tag.pom -Dfile=jcefmaven-$release_tag.jar -Djavadoc=jcefmaven-$release_tag-javadoc.jar -Dsources=jcefmaven-$release_tag-sources.jar
+
 mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-linux-amd64-$release_tag.pom -Dfile=jcef-natives-linux-amd64-$release_tag.jar
 mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-linux-arm64-$release_tag.pom -Dfile=jcef-natives-linux-arm64-$release_tag.jar
 mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-linux-i386-$release_tag.pom -Dfile=jcef-natives-linux-i386-$release_tag.jar
