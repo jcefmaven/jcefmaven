@@ -5,8 +5,6 @@
 package me.friwi.jcefmaven.simple;
 
 import me.friwi.jcefmaven.CefAppBuilder;
-import me.friwi.jcefmaven.detailed.handler.MessageRouterHandler;
-import me.friwi.jcefmaven.detailed.handler.MessageRouterHandlerEx;
 import me.friwi.jcefmaven.init.CefInitializationException;
 import me.friwi.jcefmaven.platform.UnsupportedPlatformException;
 import org.cef.CefApp;
@@ -99,12 +97,11 @@ public class MainFrame extends JFrame {
         //     of how to use these handlers.
         client_ = cefApp_.createClient();
 
+        // (3) Create a simple message router to receive messages from CEF.
         CefMessageRouter msgRouter = CefMessageRouter.create();
-        msgRouter.addHandler(new MessageRouterHandler(), true);
-        msgRouter.addHandler(new MessageRouterHandlerEx(client_), false);
         client_.addMessageRouter(msgRouter);
 
-        // (3) One CefBrowser instance is responsible to control what you'll see on
+        // (4) One CefBrowser instance is responsible to control what you'll see on
         //     the UI component of the instance. It can be displayed off-screen
         //     rendered or windowed rendered. To get an instance of CefBrowser you
         //     have to call the method "createBrowser()" of your CefClient
@@ -119,7 +116,7 @@ public class MainFrame extends JFrame {
         browser_ = client_.createBrowser(startURL, useOSR, isTransparent);
         browerUI_ = browser_.getUIComponent();
 
-        // (4) For this minimal browser, we need only a text field to enter an URL
+        // (5) For this minimal browser, we need only a text field to enter an URL
         //     we want to navigate to and a CefBrowser window to display the content
         //     of the URL. To respond to the input of the user, we're registering an
         //     anonymous ActionListener. This listener is performed each time the
@@ -169,7 +166,7 @@ public class MainFrame extends JFrame {
             }
         });
 
-        // (5) All UI components are assigned to the default content pane of this
+        // (6) All UI components are assigned to the default content pane of this
         //     JFrame and afterwards the frame is made visible to the user.
         getContentPane().add(address_, BorderLayout.NORTH);
         getContentPane().add(browerUI_, BorderLayout.CENTER);
@@ -177,7 +174,7 @@ public class MainFrame extends JFrame {
         setSize(800, 600);
         setVisible(true);
 
-        // (6) To take care of shutting down CEF accordingly, it's important to call
+        // (7) To take care of shutting down CEF accordingly, it's important to call
         //     the method "dispose()" of the CefApp instance if the Java
         //     application will be closed. Otherwise you'll get asserts from CEF.
         addWindowListener(new WindowAdapter() {
