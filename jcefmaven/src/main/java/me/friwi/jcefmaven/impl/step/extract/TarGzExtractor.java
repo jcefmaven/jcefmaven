@@ -34,7 +34,7 @@ public class TarGzExtractor {
                         LOGGER.log(Level.SEVERE, "Unable to create directory '%s', during extraction of archive contents.\n",
                                 f.getAbsolutePath());
                     } else {
-                        if (!f.setExecutable((entry.getMode() & 0111) != 0, false)) {
+                        if ((entry.getMode() & 0111) != 0 && !f.setExecutable(true, false)) {
                             LOGGER.log(Level.SEVERE, "Unable to mark directory '%s' executable, during extraction of archive contents.\n",
                                     f.getAbsolutePath());
                         }
@@ -48,7 +48,7 @@ public class TarGzExtractor {
                             dest.write(data, 0, count);
                         }
                     }
-                    if (!f.setExecutable((entry.getMode() & 0111) != 0, false)) {
+                    if ((entry.getMode() & 0111) != 0 && !f.setExecutable(true, false)) {
                         LOGGER.log(Level.SEVERE, "Unable to mark file '%s' executable, during extraction of archive contents.\n",
                                 f.getAbsolutePath());
                     }
