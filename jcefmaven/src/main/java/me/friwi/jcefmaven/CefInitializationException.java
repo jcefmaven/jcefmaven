@@ -1,5 +1,10 @@
-package me.friwi.jcefmaven.init;
+package me.friwi.jcefmaven;
 
+/**
+ * Thrown when JCef failed to initialize.
+ *
+ * @author Fritz Windisch
+ */
 public class CefInitializationException extends Exception {
     public CefInitializationException(String message) {
         super(message);

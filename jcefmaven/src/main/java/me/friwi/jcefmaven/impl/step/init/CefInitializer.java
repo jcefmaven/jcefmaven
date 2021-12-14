@@ -1,7 +1,8 @@
-package me.friwi.jcefmaven.init;
+package me.friwi.jcefmaven.impl.step.init;
 
-import me.friwi.jcefmaven.platform.EnumPlatform;
-import me.friwi.jcefmaven.platform.UnsupportedPlatformException;
+import me.friwi.jcefmaven.CefInitializationException;
+import me.friwi.jcefmaven.EnumPlatform;
+import me.friwi.jcefmaven.UnsupportedPlatformException;
 import org.cef.CefApp;
 import org.cef.CefSettings;
 import org.cef.SystemBootstrap;
@@ -10,6 +11,11 @@ import java.io.File;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Platform dependent initialization code for JCef.
+ *
+ * @author Fritz Windisch
+ */
 public class CefInitializer {
     private static final String JAVA_LIBRARY_PATH = "java.library.path";
 
@@ -50,17 +56,17 @@ public class CefInitializer {
                 //Load jcef native library
                 System.load(new File(installDir, "libjcef.dylib").getAbsolutePath());
                 //Append required arguments for macosx
-                cefArgs.add("--framework-dir-path="+installDir.getAbsolutePath()+"/Chromium Embedded Framework.framework");
-                cefArgs.add("--main-bundle-path="+installDir.getAbsolutePath()+"/jcef Helper.app");
-                cefArgs.add("--browser-subprocess-path="+installDir.getAbsolutePath()+"/jcef Helper.app/Contents/MacOS/jcef Helper");
-                cefSettings.browser_subprocess_path=installDir.getAbsolutePath()+"/jcef Helper.app/Contents/MacOS/jcef Helper";
+                cefArgs.add(0, "--framework-dir-path=" + installDir.getAbsolutePath() + "/Chromium Embedded Framework.framework");
+                cefArgs.add(0, "--main-bundle-path=" + installDir.getAbsolutePath() + "/jcef Helper.app");
+                cefArgs.add(0, "--browser-subprocess-path=" + installDir.getAbsolutePath() + "/jcef Helper.app/Contents/MacOS/jcef Helper");
+                cefSettings.browser_subprocess_path = installDir.getAbsolutePath() + "/jcef Helper.app/Contents/MacOS/jcef Helper";
                 //Initialize cef
                 boolean success = CefApp.startup(cefArgs.toArray(new String[0]));
                 if (!success) throw new CefInitializationException("JCef did not initialize correctly!");
             }
             //Configure cef settings and create app instance (currently nothing to configure, may change in the future)
             return CefApp.getInstance(cefArgs.toArray(new String[0]), cefSettings);
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
             throw new CefInitializationException("Error while initializing JCef", e);
         }
     }

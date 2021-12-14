@@ -11,34 +11,26 @@ import me.friwi.jcefmaven.detailed.ui.ControlPanel;
 import me.friwi.jcefmaven.detailed.ui.MenuBar;
 import me.friwi.jcefmaven.detailed.ui.StatusPanel;
 import me.friwi.jcefmaven.detailed.util.DataUri;
-import me.friwi.jcefmaven.init.CefInitializationException;
-import me.friwi.jcefmaven.platform.UnsupportedPlatformException;
+import me.friwi.jcefmaven.CefInitializationException;
+import me.friwi.jcefmaven.UnsupportedPlatformException;
 import org.cef.CefApp;
 import org.cef.CefApp.CefVersion;
 import org.cef.CefClient;
-import org.cef.CefSettings;
-import org.cef.CefSettings.ColorType;
-import org.cef.OS;
 import org.cef.browser.CefBrowser;
 import org.cef.browser.CefFrame;
 import org.cef.browser.CefMessageRouter;
-import org.cef.browser.CefRequestContext;
 import org.cef.handler.CefDisplayHandlerAdapter;
 import org.cef.handler.CefFocusHandlerAdapter;
 import org.cef.handler.CefLoadHandlerAdapter;
-import org.cef.handler.CefRequestContextHandlerAdapter;
 import org.cef.network.CefCookieManager;
 
 import java.awt.BorderLayout;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.io.File;
 import java.io.IOException;
-import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.Arrays;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class MainFrame extends BrowserFrame {

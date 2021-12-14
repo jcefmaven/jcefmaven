@@ -1,4 +1,4 @@
-package me.friwi.jcefmaven.version;
+package me.friwi.jcefmaven;
 
 import org.cef.CefApp;
 import org.json.simple.JSONObject;
@@ -8,6 +8,12 @@ import org.json.simple.parser.ParseException;
 import java.io.*;
 import java.util.Objects;
 
+
+/**
+ * Provides information about jcefmaven builds
+ *
+ * @author Fritz Windisch
+ */
 public class CefBuildInfo {
     private static CefBuildInfo LOCAL_BUILD_INFO = null;
     private final String jcefUrl;
@@ -22,22 +28,13 @@ public class CefBuildInfo {
         this.platform = platform;
     }
 
-    public String getJcefUrl() {
-        return jcefUrl;
-    }
-
-    public String getReleaseTag() {
-        return releaseTag;
-    }
-
-    public String getReleaseUrl() {
-        return releaseUrl;
-    }
-
-    public String getPlatform() {
-        return platform;
-    }
-
+    /**
+     * Reads the in-use jcefmaven build info from classpath
+     *
+     * @return jcefmaven build info
+     * @throws NullPointerException if the build info "/build_meta.json" does not exist on classpath
+     * @throws IOException          if reading the build info failed
+     */
     public static CefBuildInfo fromClasspath() throws IOException {
         if (LOCAL_BUILD_INFO == null) {
             LOCAL_BUILD_INFO = loadData(
@@ -48,6 +45,13 @@ public class CefBuildInfo {
         return LOCAL_BUILD_INFO;
     }
 
+    /**
+     * Loads a CefBuildInfo instance from a file
+     *
+     * @param file the file to read
+     * @return jcefmaven build info
+     * @throws IOException if reading the file failed
+     */
     public static CefBuildInfo fromFile(File file) throws IOException {
         return loadData(new FileInputStream(file));
     }
@@ -67,5 +71,21 @@ public class CefBuildInfo {
                 Objects.requireNonNull(jsonObject.get("release_tag"), "No release_tag specified in build_meta.json").toString(),
                 Objects.requireNonNull(jsonObject.get("release_url"), "No release_url specified in build_meta.json").toString(),
                 Objects.requireNonNull(jsonObject.get("platform"), "No platform specified in build_meta.json").toString());
+    }
+
+    public String getJcefUrl() {
+        return jcefUrl;
+    }
+
+    public String getReleaseTag() {
+        return releaseTag;
+    }
+
+    public String getReleaseUrl() {
+        return releaseUrl;
+    }
+
+    public String getPlatform() {
+        return platform;
     }
 }

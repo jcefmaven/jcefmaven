@@ -5,8 +5,8 @@
 package me.friwi.jcefmaven.simple;
 
 import me.friwi.jcefmaven.CefAppBuilder;
-import me.friwi.jcefmaven.init.CefInitializationException;
-import me.friwi.jcefmaven.platform.UnsupportedPlatformException;
+import me.friwi.jcefmaven.CefInitializationException;
+import me.friwi.jcefmaven.UnsupportedPlatformException;
 import org.cef.CefApp;
 import org.cef.CefApp.CefAppState;
 import org.cef.CefClient;

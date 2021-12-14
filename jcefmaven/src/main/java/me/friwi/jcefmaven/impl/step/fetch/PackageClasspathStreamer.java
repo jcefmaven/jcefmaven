@@ -1,12 +1,16 @@
-package me.friwi.jcefmaven.fetch;
+package me.friwi.jcefmaven.impl.step.fetch;
 
-import me.friwi.jcefmaven.platform.EnumPlatform;
-import me.friwi.jcefmaven.version.CefBuildInfo;
+import me.friwi.jcefmaven.CefBuildInfo;
+import me.friwi.jcefmaven.EnumPlatform;
 import org.cef.CefApp;
 
-import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * Class used to extract natives from classpath.
+ *
+ * @author Fritz Windisch
+ */
 public class PackageClasspathStreamer {
     private static final String LOCATION = "/jcef-natives-{platform}-{tag}.tar.gz";
 
