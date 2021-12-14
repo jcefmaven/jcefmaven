@@ -12,7 +12,7 @@ fi
 cd "$( dirname "$0" )"
 
 #Set build info
-./set_build_info.sh $1
+. set_build_info.sh $1
 
 #Clear export dir
 rm -rf /jcefout/*

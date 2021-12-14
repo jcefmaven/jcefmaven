@@ -18,7 +18,7 @@ echo "# Upload errors can be ignored when the artifact is already published! #"
 echo "########################################################################"
 
 #Set build info
-./scripts/set_build_info.sh $1
+. scripts/set_build_info.sh $1
 
 #Move artifacts to a non-protected folder
 rm -rf upload
