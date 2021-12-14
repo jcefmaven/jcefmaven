@@ -17,11 +17,8 @@ echo "########################################################################"
 echo "# Upload errors can be ignored when the artifact is already published! #"
 echo "########################################################################"
 
-#Print build meta location
-echo "Initializing for build from $1..."
-
-#Download build_meta.json and import to local environment
-export $(curl -s -L $1 | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]")
+#Set build info
+./scripts/set_build_info.sh $1
 
 #Move artifacts to a non-protected folder
 rm -rf upload
@@ -29,17 +26,14 @@ mkdir upload
 cp out/* upload/
 cd upload
 
-#Set JOGL information (also set in scripts/generate_maven_builds.sh!)
-export jogl_build=v2.4.0-rc-20210111
-
-echo "Uploading maven artifacts for $release_tag..."
+echo "Uploading maven artifacts for $mvn_version+$release_tag..."
 
 mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jogl-all-$jogl_build.pom -Dfile=jogl-all-$jogl_build.jar
 mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=gluegen-rt-$jogl_build.pom -Dfile=gluegen-rt-$jogl_build.jar
 
 mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-api-$release_tag.pom -Dfile=jcef-api-$release_tag.jar -Djavadoc=jcef-api-$release_tag-javadoc.jar -Dsources=jcef-api-$release_tag-sources.jar
 
-mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcefmaven-$release_tag.pom -Dfile=jcefmaven-$release_tag.jar -Djavadoc=jcefmaven-$release_tag-javadoc.jar -Dsources=jcefmaven-$release_tag-sources.jar
+mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcefmaven-$mvn_version+$release_tag.pom -Dfile=jcefmaven-$mvn_version+$release_tag.jar -Djavadoc=jcefmaven-$mvn_version+$release_tag-javadoc.jar -Dsources=jcefmaven-$mvn_version+$release_tag-sources.jar
 
 mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-linux-amd64-$release_tag.pom -Dfile=jcef-natives-linux-amd64-$release_tag.jar
 mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-linux-arm64-$release_tag.pom -Dfile=jcef-natives-linux-arm64-$release_tag.jar

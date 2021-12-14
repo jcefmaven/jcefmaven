@@ -11,20 +11,13 @@ fi
 #CD to dir of this script
 cd "$( dirname "$0" )"
 
-#Print build meta location
-echo "Initializing for build from $1..."
+#Set build info
+./set_build_info.sh $1
 
 #Clear export dir
 rm -rf /jcefout/*
 
-#Download build_meta.json and import to local environment
-export $(curl -s -L $1 | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]")
-
-#Set JOGL information (also set in upload_artifacts.sh!)
-export jogl_build=v2.4.0-rc-20210111
-export jogl_download=https://jogamp.org/deployment/$jogl_build/jar #Without terminating /!
-
-echo "Creating maven artifacts for $release_tag..."
+echo "Creating maven artifacts for $mvn_version+$release_tag..."
 
 #jogl-all
 echo "###########################################"

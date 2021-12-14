@@ -5,6 +5,8 @@
 package me.friwi.jcefmaven.simple;
 
 import me.friwi.jcefmaven.CefAppBuilder;
+import me.friwi.jcefmaven.detailed.handler.MessageRouterHandler;
+import me.friwi.jcefmaven.detailed.handler.MessageRouterHandlerEx;
 import me.friwi.jcefmaven.init.CefInitializationException;
 import me.friwi.jcefmaven.platform.UnsupportedPlatformException;
 import org.cef.CefApp;
@@ -12,6 +14,7 @@ import org.cef.CefApp.CefAppState;
 import org.cef.CefClient;
 import org.cef.browser.CefBrowser;
 import org.cef.browser.CefFrame;
+import org.cef.browser.CefMessageRouter;
 import org.cef.handler.CefAppHandlerAdapter;
 import org.cef.handler.CefDisplayHandlerAdapter;
 import org.cef.handler.CefFocusHandlerAdapter;
@@ -95,6 +98,11 @@ public class MainFrame extends JFrame {
         //     behavior of the browser. See tests.detailed.MainFrame for an example
         //     of how to use these handlers.
         client_ = cefApp_.createClient();
+
+        CefMessageRouter msgRouter = CefMessageRouter.create();
+        msgRouter.addHandler(new MessageRouterHandler(), true);
+        msgRouter.addHandler(new MessageRouterHandlerEx(client_), false);
+        client_.addMessageRouter(msgRouter);
 
         // (3) One CefBrowser instance is responsible to control what you'll see on
         //     the UI component of the instance. It can be displayed off-screen

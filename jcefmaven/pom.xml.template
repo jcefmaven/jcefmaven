@@ -9,7 +9,7 @@
 
     <groupId>me.friwi</groupId>
     <artifactId>jcefmaven</artifactId>
-    <version>{release_tag}</version>
+    <version>{mvn_version}+{release_tag}</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

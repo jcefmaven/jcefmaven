@@ -8,7 +8,7 @@ rm -rf build
 mkdir build
 cd build
 
-echo "Creating jcefmaven with tag $release_tag..."
+echo "Creating jcefmaven with tag $mvn_version+$release_tag..."
 export platform=\*
 export release_download_url=$release_url
 
@@ -33,10 +33,10 @@ cd ..
 #Move built artifacts to export dir
 ##########################
 echo "Exporting artifacts..."
-mv jcefmaven/target/jcefmaven-$release_tag.jar /jcefout
-mv jcefmaven/target/jcefmaven-$release_tag-javadoc.jar /jcefout
-mv jcefmaven/target/jcefmaven-$release_tag-sources.jar /jcefout
-mv jcefmaven/pom.xml /jcefout/jcefmaven-$release_tag.pom
+mv jcefmaven/target/jcefmaven-$mvn_version+$release_tag.jar /jcefout
+mv jcefmaven/target/jcefmaven-$mvn_version+$release_tag-javadoc.jar /jcefout
+mv jcefmaven/target/jcefmaven-$mvn_version+$release_tag-sources.jar /jcefout
+mv jcefmaven/pom.xml /jcefout/jcefmaven-$mvn_version+$release_tag.pom
 
 #Done
-echo "Done generating api for $release_tag"
+echo "Done generating api for $mvn_version+$release_tag"
