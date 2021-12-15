@@ -85,20 +85,28 @@ public class MainFrame extends BrowserFrame {
             // try to load URL "about:blank" to see the background color
             builder.getCefSettings().background_color = builder.getCefSettings().new ColorType(100, 255, 242, 211);
 
-            // 1) CefApp is the entry point for JCEF. You can pass
-            //    application arguments to it, if you want to handle any
-            //    chromium or CEF related switches/attributes in
-            //    the native world.
-            myApp = builder.build();
-
-            CefVersion version = myApp.getVersion();
-            System.out.println("Using:\n" + version);
-
             //    We're registering our own AppHandler because we want to
             //    add an own schemes (search:// and client://) and its corresponding
             //    protocol handlers. So if you enter "search:something on the web", your
             //    search request "something on the web" is forwarded to www.google.com
-            CefApp.addAppHandler(new AppHandler(args));
+            //
+            //    USE builder.setAppHandler INSTEAD OF CefApp.addAppHandler!
+            //    Fixes compatibility issues with MacOSX
+            builder.setAppHandler(new AppHandler(args));
+
+            // 1) CefApp is the entry point for JCEF. You can pass
+            //    application arguments to it, if you want to handle any
+            //    chromium or CEF related switches/attributes in
+            //    the native world.
+            //
+            //    WHEN WORKING WITH MAVEN: Use the builder.build() method to
+            //    build the CefApp on first run and fetch the instance on all consecutive
+            //    runs. This method is thread-safe and will always return a valid app
+            //    instance.
+            myApp = builder.build();
+
+            CefVersion version = myApp.getVersion();
+            System.out.println("Using:\n" + version);
         } else {
             myApp = CefApp.getInstance();
         }

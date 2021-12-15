@@ -6,6 +6,7 @@ package me.friwi.jcefmaven.simple;
 
 import me.friwi.jcefmaven.CefAppBuilder;
 import me.friwi.jcefmaven.CefInitializationException;
+import me.friwi.jcefmaven.MavenCefAppHandlerAdapter;
 import me.friwi.jcefmaven.UnsupportedPlatformException;
 import org.cef.CefApp;
 import org.cef.CefApp.CefAppState;
@@ -13,7 +14,6 @@ import org.cef.CefClient;
 import org.cef.browser.CefBrowser;
 import org.cef.browser.CefFrame;
 import org.cef.browser.CefMessageRouter;
-import org.cef.handler.CefAppHandlerAdapter;
 import org.cef.handler.CefDisplayHandlerAdapter;
 import org.cef.handler.CefFocusHandlerAdapter;
 
@@ -63,7 +63,15 @@ public class MainFrame extends JFrame {
         // (0) Initialize CEF using the maven loader
         CefAppBuilder builder = new CefAppBuilder();
         builder.getCefSettings().windowless_rendering_enabled = useOSR;
-        cefApp_ = builder.build();
+        // USE builder.setAppHandler INSTEAD OF CefApp.addAppHandler!
+        // Fixes compatibility issues with MacOSX
+        builder.setAppHandler(new MavenCefAppHandlerAdapter(null) {
+            @Override
+            public void stateHasChanged(org.cef.CefApp.CefAppState state) {
+                // Shutdown the app if the native CEF part is terminated
+                if (state == CefAppState.TERMINATED) System.exit(0);
+            }
+        });
 
         // (1) The entry point to JCEF is always the class CefApp. There is only one
         //     instance per application and therefore you have to call the method
@@ -73,13 +81,12 @@ public class MainFrame extends JFrame {
         //     required native libraries, initializes CEF accordingly, starts a
         //     background task to handle CEF's message loop and takes care of
         //     shutting down CEF after disposing it.
-        CefApp.addAppHandler(new CefAppHandlerAdapter(null) {
-            @Override
-            public void stateHasChanged(org.cef.CefApp.CefAppState state) {
-                // Shutdown the app if the native CEF part is terminated
-                if (state == CefAppState.TERMINATED) System.exit(0);
-            }
-        });
+        //
+        //     WHEN WORKING WITH MAVEN: Use the builder.build() method to
+        //     build the CefApp on first run and fetch the instance on all consecutive
+        //     runs. This method is thread-safe and will always return a valid app
+        //     instance.
+        cefApp_ = builder.build();
 
         // (2) JCEF can handle one to many browser instances simultaneous. These
         //     browser instances are logically grouped together by an instance of

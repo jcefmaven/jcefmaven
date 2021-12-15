@@ -136,6 +136,14 @@ public class CefAppBuilder {
     }
 
     /**
+     * Attach your own adapter to handle certain events in CEF.
+     * @param handlerAdapter the adapter to attach
+     */
+    public void setAppHandler(MavenCefAppHandlerAdapter handlerAdapter){
+        CefApp.addAppHandler(handlerAdapter);
+    }
+
+    /**
      * Builds a {@link org.cef.CefApp} instance. When called multiple times,
      * will return the previously built instance. This method is thread-safe.
      *
