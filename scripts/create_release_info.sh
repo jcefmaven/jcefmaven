@@ -34,7 +34,7 @@ commit_message=$(git log -1 --pretty=%B)
 #Tag
 release_tag=$(echo "$mvn_version+jcef-$jcef_commit+cef-$cef_version" | awk '{print}' ORS='')
 
-echo "release_tag_name=$release_tag" >> $GITHUB_ENV
+echo "release_tag_name=$mvn_version" >> $GITHUB_ENV
 
 #Name
 echo "release_name=MVN $mvn_version + JCEF $jcef_commit + CEF $cef_version" >> $GITHUB_ENV 
