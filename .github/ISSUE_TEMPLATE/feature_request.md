@@ -1,7 +1,7 @@
 ---
 name: Feature request
 about: Suggest an idea for the maven support
-title: ''
+title: '[ENH] ...'
 labels: enhancement
 assignees: ''
 
