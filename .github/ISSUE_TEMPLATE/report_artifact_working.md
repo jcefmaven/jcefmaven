@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-Please follow the format strictly and do not modify the template. You can add your own text under `Additional information`.
+Please follow the format strictly and do not modify the template. Please *always* test with the official sample app [here](https://github.com/jcefmaven/jcefsampleapp) (you will need to clone it and modify the version of JCef that is being used). You can add your own text under `Additional information`.
 
 **Tag**
 v1.0.0+jcef-XXXXXXX+cef-...
