@@ -1,5 +1,5 @@
 # JCEF Maven Artifacts #
-Latest release: `v1.0.0+jcef-ae6912a+cef-95.7.14+g9f72f35+chromium-95.0.4638.69`
+Latest release: `v1.0.0+jcef-544024e+cef-95.7.14+g9f72f35+chromium-95.0.4638.69`
 
 This repository provides artifacts to integrate JCEF in Maven projects.
 Supports Linux, Windows and MacOSX.
