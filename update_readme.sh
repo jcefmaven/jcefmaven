@@ -19,5 +19,7 @@ cd "$( dirname "$0" )"
 
 #Push to git
 git add README.md
+git config user.name github-actions
+git config user.email github-actions@github.com
 git commit -m "Update README.md to $mvn_version+$release_tag"
 git push -u origin master
