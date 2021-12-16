@@ -25,6 +25,15 @@ jobs:
           name: ${{env.release_name}}
           tag_name: ${{env.release_tag_name}}
           body_path: release_info/release_message.md
+      - name: Add build_meta.json       
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: release_info/build_meta.json                                                           
+          asset_name: build_meta.json                                     
+          asset_content_type: application/json
       - name: Create artifacts
         run: chmod +x generate_artifacts.sh && ./generate_artifacts.sh ${{ github.event.inputs.build_meta }}
       - name: Set up Java for publishing to GitHub Packages

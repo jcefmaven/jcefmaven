@@ -76,6 +76,9 @@ echo "release_name=MVN $mvn_version + JCEF $jcef_commit + CEF $cef_version" >> $
   echo "|arm|![Untested](https://img.shields.io/badge/linux--arm-Untested-lightgrey)| - | - |"
 ) > ../release_message.md
 
+#Add build_meta.json
+curl -s -L -o ../build_meta.json $1
+
 #Cleanup
 cd ..
 rm -rf jcef
