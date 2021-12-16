@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Update README.md
         run: |
-          chmod +x upate_readme.sh
+          chmod +x update_readme.sh
           ./update_readme.sh ${{ github.event.inputs.build_meta }}
       - name: Generate release info
         run: |
