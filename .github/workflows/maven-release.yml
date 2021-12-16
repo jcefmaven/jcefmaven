@@ -28,3 +28,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+      - name: Generate release info
+        run: |
+          cd scripts
+          chmod +x create_release_info.sh
+          ./create_release_info.sh ${{ github.event.inputs.build_meta }} https://github.com/${{github.repository}}/actions/runs/${{github.run_id}} ${{github.run_number}}
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{env.release_name}}
+          tag_name: ${{env.release_tag_name}}
+          body_path: release_info/release_message.md

@@ -15,6 +15,9 @@ v1.0.0+jcef-XXXXXXX+cef-...
 **OS (linux/windows/macosx)**
 linux
 
+**OS Version/Flavor (e.g. Ubuntu 20.04, Windows 10, Big Sur)**
+Ubuntu 20.04
+
 **Arch (amd64/i386/arm64/arm)**
 amd64
 
