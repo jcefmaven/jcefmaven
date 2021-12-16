@@ -92,7 +92,7 @@ public class MainFrame extends BrowserFrame {
             //
             //    USE builder.setAppHandler INSTEAD OF CefApp.addAppHandler!
             //    Fixes compatibility issues with MacOSX
-            builder.setAppHandler(new AppHandler(args));
+            builder.setAppHandler(new AppHandler());
 
             // 1) CefApp is the entry point for JCEF. You can pass
             //    application arguments to it, if you want to handle any

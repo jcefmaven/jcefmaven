@@ -13,8 +13,8 @@ import org.cef.handler.CefAppHandlerAdapter;
  * @author Fritz Windisch
  */
 public abstract class MavenCefAppHandlerAdapter extends CefAppHandlerAdapter {
-    public MavenCefAppHandlerAdapter(String[] args) {
-        super(args);
+    public MavenCefAppHandlerAdapter() {
+        super(null);
     }
 
     @Override

@@ -18,8 +18,8 @@ public class AppHandler extends MavenCefAppHandlerAdapter {
     // We're registering our own schemes to demonstrate how to use
     // CefAppHandler.onRegisterCustomSchemes() in combination with
     // CefApp.registerSchemeHandlerFactory().
-    public AppHandler(String[] args) {
-        super(args);
+    public AppHandler() {
+        super();
     }
 
     // (1) First of all we have to register our custom schemes by implementing

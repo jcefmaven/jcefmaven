@@ -65,7 +65,7 @@ public class MainFrame extends JFrame {
         builder.getCefSettings().windowless_rendering_enabled = useOSR;
         // USE builder.setAppHandler INSTEAD OF CefApp.addAppHandler!
         // Fixes compatibility issues with MacOSX
-        builder.setAppHandler(new MavenCefAppHandlerAdapter(null) {
+        builder.setAppHandler(new MavenCefAppHandlerAdapter() {
             @Override
             public void stateHasChanged(org.cef.CefApp.CefAppState state) {
                 // Shutdown the app if the native CEF part is terminated
