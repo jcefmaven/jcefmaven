@@ -6,7 +6,7 @@ import org.cef.handler.CefAppHandlerAdapter;
 
 /**
  * An extendable implementation of CefAppHandlerAdapter that fixes execution
- * issues on MacOS. Prevents the method "onBeforeCommandLineProcessing" to
+ * issues on MacOSX. Prevents the method "onBeforeCommandLineProcessing" to
  * be overridden. If you need to evaluate arguments, do that before you pass
  * them to the builder.
  *
