@@ -19,5 +19,7 @@ export jogl_build=v2.4.0-rc-20210111
 export jogl_download=https://jogamp.org/deployment/$jogl_build/jar #Without terminating /!
 
 #Set jcefmaven information
-export mvn_version=v1.0.0
+export tag_version=1.0
+#Do not edit the mvn_version, edit the tag version!
+export mvn_version=v$tag_version.0
 
