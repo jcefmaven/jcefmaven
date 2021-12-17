@@ -28,8 +28,8 @@ cd upload
 
 echo "Uploading maven artifacts for $mvn_version+$release_tag..."
 
-mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jogl-all-$jogl_build.pom -Dfile=jogl-all-$jogl_build.jar
-mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=gluegen-rt-$jogl_build.pom -Dfile=gluegen-rt-$jogl_build.jar
+mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jogl-all-$jogl_build.pom -Dfile=jogl-all-$jogl_build.jar -Djavadoc=jogl-all-$jogl_build-javadoc.jar -Dsources=jogl-all-$jogl_build-sources.jar
+mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=gluegen-rt-$jogl_build.pom -Dfile=gluegen-rt-$jogl_build.jar -Djavadoc=gluegen-rt-$jogl_build-javadoc.jar -Dsources=gluegen-rt-$jogl_build-sources.jar
 
 mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-api-$release_tag.pom -Dfile=jcef-api-$release_tag.jar -Djavadoc=jcef-api-$release_tag-javadoc.jar -Dsources=jcef-api-$release_tag-sources.jar
 

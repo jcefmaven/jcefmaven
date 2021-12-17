@@ -46,9 +46,9 @@
     </licenses>
 
     <scm>
-      <url>http://jogamp.org/git/?p=jogl.git/</url>
-      <connection>scm:git:http://jogamp.org/git/jogl.git/</connection>
-      <developerConnection>scm:git:http://jogamp.org/git/jogl.git/</developerConnection>
+      <url>{jogl_git}</url>
+      <connection>scm:git:{jogl_git}</connection>
+      <developerConnection>scm:git:{jogl_git}</developerConnection>
     </scm>
 
     <developers>

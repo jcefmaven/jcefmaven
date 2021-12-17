@@ -17,6 +17,10 @@ export $(curl -s -L $1 | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.
 #Set JOGL information
 export jogl_build=v2.4.0-rc-20210111
 export jogl_download=https://jogamp.org/deployment/$jogl_build/jar #Without terminating /!
+export jogl_git=https://jogamp.org/cgit/jogl.git
+export jogl_commit=ecf6e499d3b582d651a28693c871ca14d6e8c991 #From META-INF
+export gluegen_git=https://jogamp.org/cgit/gluegen.git
+export gluegen_commit=0b441cfc14947b1c8cabdc87705ae95a0afec4d9 #From META-INF
 
 #Set jcefmaven information
 export tag_version=1.0

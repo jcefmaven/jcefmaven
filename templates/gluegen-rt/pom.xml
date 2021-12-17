@@ -19,9 +19,9 @@
     <!-- gluegen/pom.in -->
 
     <scm>
-      <url>http://jogamp.org/git/?p=gluegen.git/</url>
-      <connection>scm:git:http://jogamp.org/git/gluegen.git/</connection>
-      <developerConnection>scm:git:http://jogamp.org/git/gluegen.git/</developerConnection>
+      <url>{gluegen_git}</url>
+      <connection>scm:git:{gluegen_git}</connection>
+      <developerConnection>scm:git:{gluegen_git}</developerConnection>
     </scm>
 
     <licenses>

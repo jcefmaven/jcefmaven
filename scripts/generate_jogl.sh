@@ -47,9 +47,57 @@ zip -r $1-$jogl_build.jar *
 echo "Generating pom..."
 ./../scripts/fill_template.sh ../templates/$1/pom.xml $1-$jogl_build.pom
 
+#Build sources
+if [[ "$1" == "jogl-all" ]] ; then
+   git clone $jogl_git sources
+   cd sources
+   git checkout $jogl_commit
+   cd ..
+   mkdir exp
+   # Merge Sources
+   cp -r sources/src/jogl/classes/* exp
+   cp -r sources/src/newt/classes/* exp
+   cp -r sources/src/nativewindow/classes/* exp
+   cd exp
+else
+   git clone $gluegen_git sources
+   cd sources
+   git checkout $gluegen_commit
+   cd ..
+   mkdir exp
+   cp -r sources/src/java/* exp
+   cd exp
+   # Prune files
+   cd com/jogamp/gluegen && rm -rf *.java *.html ant *gram pcpp procaddress structgen && cd ../../..
+   cd jogamp && rm -rf android && cd ..
+   rm -rf net
+fi
+zip -r ../$1-$jogl_build-sources.jar *
+cd ..
+rm -rf exp sources
+
+#Build javadoc
+mkdir javadoc
+cd javadoc
+if [[ "$1" == "jogl-all" ]] ; then
+    curl -s -L -o javadoc.7z $jogl_download/../archive/jogl-javadoc.7z
+    7z x javadoc.7z
+    cd jogl/javadoc
+    zip -r ../../../$1-$jogl_build-javadoc.jar *
+else
+    curl -s -L -o javadoc.7z $jogl_download/../archive/gluegen-javadoc.7z
+    7z x javadoc.7z
+    cd gluegen/javadoc
+    zip -r ../../../$1-$jogl_build-javadoc.jar *
+fi
+cd ../../..
+rm -rf javadoc
+
 #Move built artifacts to export dir
 echo "Exporting artifacts..."
 mv $1-$jogl_build.jar /jcefout
+mv $1-$jogl_build-sources.jar /jcefout
+mv $1-$jogl_build-javadoc.jar /jcefout
 mv $1-$jogl_build.pom /jcefout
 
 #Done
