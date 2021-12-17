@@ -1,15 +1,70 @@
-# JCEF Maven Artifacts #
-Latest release: `{mvn_version}+{release_tag}`
+<div id="title" align="center">
+<h1>JCEF MAVEN</h1>
+<a href="../../releases/latest"><img alt="build-all" src="../../actions/workflows/maven-release.yml/badge.svg"></img></a>
 
-This repository provides artifacts to integrate JCEF in Maven projects.
-Supports Linux, Windows and MacOSX.
+<h4>Independent project to produce maven artifacts for the JCef project</h4>
+<h6>Visit the JCEF repo at <a href="https://bitbucket.org/chromiumembedded/java-cef/src/master/">bitbucket</a> or <a href="https://github.com/chromiumembedded/java-cef">github</a> </h6>
 
-See the official JCEF git repository:
-<a href="https://bitbucket.org/chromiumembedded/java-cef/src/master/">bitbucket</a> or 
-<a href="https://github.com/chromiumembedded/java-cef">github</a>.<br/>
-See the jcefbuild binary builds for JCEF:
-<a href="https://github.com/jcefbuild/jcefbuild">jcefbuild/jcefbuild</a>.
+<h4> </h4>
 
-### How to use ###
+**Supports**
+<table>
+  <tr><td align="right"><img src="https://simpleicons.org/icons/linux.svg" alt="linux" width="32" height="32"></td><td align="left">amd64, arm64, i386, arm</td></tr>
+  <tr><td align="right"><img src="https://simpleicons.org/icons/windows.svg" alt="windows" width="32" height="32"></td><td align="left">amd64, arm64, i386</td></tr>
+  <tr><td align="right"><img src="https://simpleicons.org/icons/apple.svg" alt="macosx" width="32" height="32"></td><td align="left">amd64, arm64</td></tr>
+</table>
+  
+</div>
 
-This repository is currently in the process of being updated. Please view usage instructions of an [older version](https://github.com/jcefmaven/jcefmaven/blob/0b9a15342e12fc868fa3f9eb22430552a17fcb01/README.md) in the mean time.
+## Installation
+**Use with Maven:**
+```Maven POM
+<dependency>
+    <groupId>me.friwi</groupId>
+    <artifactId>jcefmaven</artifactId>
+    <version>{mvn_version}+{release_tag}</version>
+</dependency>
+```
+
+**Use with Gradle:**
+```Gradle
+implementation 'me.friwi:jcefmaven:{mvn_version}+{release_tag}'
+```
+
+---
+
+## How to use
+You can find the most recent versions of the artifacts on the [releases](../../releases) page of this repository. With each release you can also see a table which platforms have been tested. If you have tested a platform that has not been tested before (using the [sample app](https://github.com/jcefmaven/jcefsampleapp)), make sure to open a [new issue](../../issues/new/choose) to share your findings!
+
+Once you found a version you want to use, include it as a dependency into your project. An example include for Maven and Gradle can be seen above.
+This will only include the base jcef library and jogl in your project. Natives will be downloaded and extracted on first run. If you want to skip downloading and instead bundle the natives, include the native artifacts in your project dependencies. You can see all of them [here](../../packages?tab=packages&q=natives). It is recommended to only include one bundle per build though, as each bundle is ~100MB. If you wish to include them, make sure you export one build per platform!
+
+Once you added your dependencies, you need to fire up jcefmaven in your code. No worries, it's not complicated!
+```java
+//Create a new CefAppBuilder instance
+CefAppBuilder builder = new CefAppBuilder();
+
+//Configure the builder instance
+builder.setInstallDir(new File("jcef-bundle")); //Default
+builder.setProgressHandler(new ConsoleProgressHandler()); //Default
+builder.addJCefArgs("--disable-gpu"); //Just an example
+builder.getCefSettings().windowless_rendering_enabled = true; //Default - select OSR mode
+
+//Set an app handler. Do not use CefApp.addAppHandler(...), it will break your code on MacOSX!
+builder.setAppHandler(new MavenCefAppHandlerAdapter(){...});
+
+//Build a CefApp instance using the configuration above
+CefApp app = builder.build();
+```
+From there, continue to write your app using jcef as you are used to. You can call `builder.build()` as many times as you want. It is even thread-safe while initializing (will pause threads and return when initialization was completed).
+
+If you need some code examples to create your first app, have a look at the [tests](jcefmaven/src/test) on this repository or at the [sample app](https://github.com/jcefmaven/jcefsampleapp).
+
+## Limitations
+- No OSR mode supported on win-arm64 (no jogamp)
+- `CefApp.addAppHandler(...)` should not be used. Use `builder.setAppHandler(...)` instead (requires a `CefMavenAppHandlerAdapter`)
+
+## Reporting bugs
+Please only report bugs here that are related to the maven artifacts.
+Please report bugs in JCEF/CEF to the [corresponding repository on Bitbucket](https://bitbucket.org/chromiumembedded/).
+
