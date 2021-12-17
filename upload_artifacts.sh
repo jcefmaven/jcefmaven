@@ -35,16 +35,16 @@ mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-api-$rele
 
 mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcefmaven-$mvn_version+$release_tag.pom -Dfile=jcefmaven-$mvn_version+$release_tag.jar -Djavadoc=jcefmaven-$mvn_version+$release_tag-javadoc.jar -Dsources=jcefmaven-$mvn_version+$release_tag-sources.jar
 
-mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-linux-amd64-$release_tag.pom -Dfile=jcef-natives-linux-amd64-$release_tag.jar
-mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-linux-arm64-$release_tag.pom -Dfile=jcef-natives-linux-arm64-$release_tag.jar
-mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-linux-i386-$release_tag.pom -Dfile=jcef-natives-linux-i386-$release_tag.jar
-mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-linux-arm-$release_tag.pom -Dfile=jcef-natives-linux-arm-$release_tag.jar
+mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-linux-amd64-$release_tag.pom -Dfile=jcef-natives-linux-amd64-$release_tag.jar -Djavadoc=jcef-natives-linux-amd64-$release_tag-javadoc.jar -Dsources=jcef-natives-linux-amd64-$release_tag-sources.jar
+mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-linux-arm64-$release_tag.pom -Dfile=jcef-natives-linux-arm64-$release_tag.jar -Djavadoc=jcef-natives-linux-arm64-$release_tag-javadoc.jar -Dsources=jcef-natives-linux-arm64-$release_tag-sources.jar
+mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-linux-i386-$release_tag.pom -Dfile=jcef-natives-linux-i386-$release_tag.jar -Djavadoc=jcef-natives-linux-i386-$release_tag-javadoc.jar -Dsources=jcef-natives-linux-i386-$release_tag-sources.jar
+mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-linux-arm-$release_tag.pom -Dfile=jcef-natives-linux-arm-$release_tag.jar -Djavadoc=jcef-natives-linux-arm-$release_tag-javadoc.jar -Dsources=jcef-natives-linux-arm-$release_tag-sources.jar
 
-mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-macosx-amd64-$release_tag.pom -Dfile=jcef-natives-macosx-amd64-$release_tag.jar
-mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-macosx-arm64-$release_tag.pom -Dfile=jcef-natives-macosx-arm64-$release_tag.jar
+mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-macosx-amd64-$release_tag.pom -Dfile=jcef-natives-macosx-amd64-$release_tag.jar -Djavadoc=jcef-natives-macosx-amd64-$release_tag-javadoc.jar -Dsources=jcef-natives-macosx-amd64-$release_tag-sources.jar
+mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-macosx-arm64-$release_tag.pom -Dfile=jcef-natives-macosx-arm64-$release_tag.jar -Djavadoc=jcef-natives-macosx-arm64-$release_tag-javadoc.jar -Dsources=jcef-natives-macosx-arm64-$release_tag-sources.jar
 
-mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-windows-amd64-$release_tag.pom -Dfile=jcef-natives-windows-amd64-$release_tag.jar
-mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-windows-arm64-$release_tag.pom -Dfile=jcef-natives-windows-arm64-$release_tag.jar
-mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-windows-i386-$release_tag.pom -Dfile=jcef-natives-windows-i386-$release_tag.jar
+mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-windows-amd64-$release_tag.pom -Dfile=jcef-natives-windows-amd64-$release_tag.jar -Djavadoc=jcef-natives-windows-amd64-$release_tag-javadoc.jar -Dsources=jcef-natives-windows-amd64-$release_tag-sources.jar
+mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-windows-arm64-$release_tag.pom -Dfile=jcef-natives-windows-arm64-$release_tag.jar -Djavadoc=jcef-natives-windows-arm64-$release_tag-javadoc.jar -Dsources=jcef-natives-windows-arm64-$release_tag-sources.jar
+mvn gpg:sign-and-deploy-file -Durl=$2 -DrepositoryId=$3 -DpomFile=jcef-natives-windows-i386-$release_tag.pom -Dfile=jcef-natives-windows-i386-$release_tag.jar -Djavadoc=jcef-natives-windows-i386-$release_tag-javadoc.jar -Dsources=jcef-natives-windows-i386-$release_tag-sources.jar
 
 echo "Done uploading maven artifacts!"

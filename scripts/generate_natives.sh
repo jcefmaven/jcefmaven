@@ -62,9 +62,21 @@ zip jcef-natives-$2-$3.jar jcef-natives-$2-$3.tar.gz
 echo "Generating pom..."
 ./../scripts/fill_template.sh ../templates/natives/pom.xml jcef-natives-$2-$3.pom
 
+#Generate sources and javadoc
+echo "Generating sources and javadoc..."
+mkdir compile
+cp jcef-natives-$2-$3.pom compile/pom.xml
+cp -r ../templates/natives/src compile
+./../scripts/fill_template.sh ../templates/natives/src/main/java/me/friwi/jcefmaven/CefNativeBundle.java compile/src/main/java/me/friwi/jcefmaven/CefNativeBundle.java
+cd compile
+mvn clean package source:jar javadoc:jar
+cd ..
+
 #Move built artifacts to export dir
 echo "Exporting artifacts..."
 mv jcef-natives-$2-$3.jar /jcefout
+mv compile/target/jcef-natives-$2-$3-sources.jar /jcefout
+mv compile/target/jcef-natives-$2-$3-javadoc.jar /jcefout
 mv jcef-natives-$2-$3.pom /jcefout
 
 #Done
