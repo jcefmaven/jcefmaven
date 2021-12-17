@@ -1,7 +1,7 @@
 ---
 name: Report an artifact as tested
 about: This helps to mark certain versions as tested and helps other users in their version decision.
-title: '[TR] Artifact <TAG> on <OS> is <working/not working>'
+title: '[TR] Artifact <TAG> on <OS>/<ARCH> is <working/not working>'
 labels: test report
 assignees: ''
 
