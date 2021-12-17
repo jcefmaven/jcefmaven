@@ -60,8 +60,7 @@ From there, continue to write your app using jcef as you are used to. You can ca
 
 If you need some code examples to create your first app, have a look at the [tests](jcefmaven/src/test) on this repository or at the [sample app](https://github.com/jcefmaven/jcefsampleapp).
 
-**Some additional useful code snippets**
-
+#### Some additional useful code snippets
 If you want to get the current platform as determined by jcefmaven (e.g. to disable osr on win-arm64), you can use:
 ```java
 EnumPlatform platform = EnumPlatform.getCurrentPlatform();
