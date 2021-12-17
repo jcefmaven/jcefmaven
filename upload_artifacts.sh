@@ -17,7 +17,6 @@ cd "$( dirname "$0" )"
 rm -rf upload
 mkdir upload
 cp out/* upload/
-cd upload
 
 echo "Uploading maven artifacts for $mvn_version+$release_tag..."
 

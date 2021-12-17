@@ -14,6 +14,9 @@ groupId=$4
 artifactId=$5
 version=$6
 
+#CD to the upload dir
+cd "$( dirname "$0" )" && cd upload
+
 pathGroupId=$(sed 's|\.|\/|g' <<< $groupId)
 targetUrl=$releaseRepoUrl/$pathGroupId/$artifactId/$version/$artifactId-$version.jar
 
