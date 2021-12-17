@@ -69,5 +69,5 @@ jobs:
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
           MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
-      - name: Close OSSRH Staging
-        run: chmod +x close_repository.sh && ./close_repository.sh "${{ secrets.MAVEN_USERNAME }}" "${{ secrets.MAVEN_CENTRAL_TOKEN }}"
+      - name: Release to Apache Maven Central
+        run: chmod +x auto_release_repositories.sh && ./auto_release_repositories.sh "${{ secrets.MAVEN_USERNAME }}" "${{ secrets.MAVEN_CENTRAL_TOKEN }}"
