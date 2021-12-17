@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #Script from https://gist.githubusercontent.com/romainbsl/0d0bb2149ce7f34246ec6ab0733a07f1
 
-if [ ! $# -eq 2 ]
+if [ ! $# -eq 3 ]
   then
     echo "Usage: ./release_repository.sh <user> <password> <stagedRepositoryId>"
     echo ""
@@ -21,6 +21,8 @@ then
       exit 1
 fi
 
+echo "Closing repository..."
+
 closingRepository=$(
   curl -s --request POST -u "$username:$password" \
     --url https://oss.sonatype.org/service/local/staging/bulk/close \
@@ -34,12 +36,14 @@ if [ ! -z "$closingRepository" ]; then
     exit 1
 fi
 
+echo "Waiting on close..."
+
 start=$(date +%s)
 while true ; do
   # force timeout after 15 minutes
   now=$(date +%s)
   if [ $(( (now - start) / 60 )) -gt 15 ]; then
-      echo "Closing process is to long, stopping the job (waiting for closing repository)."
+      echo "Closing process is too long, stopping the job (waiting for closing repository)."
       exit 1
   fi
 
@@ -68,12 +72,14 @@ while true ; do
   fi
 done
 
+echo "Waiting on transitioning..."
+
 start=$(date +%s)
 while true ; do
   # force timeout after 5 minutes
   now=$(date +%s)
   if [ $(( (now - start) / 60 )) -gt 5 ]; then
-      echo "Closing process is to long, stopping the job (waiting for transitioning state)."
+      echo "Closing process is too long, stopping the job (waiting for transitioning state)."
       exit 1
   fi
 
@@ -91,6 +97,8 @@ while true ; do
   fi
 done
 
+echo "Releasing repo..."
+
 release=$(curl -s --request POST -u "$username:$password" \
   --url https://oss.sonatype.org/service/local/staging/bulk/promote \
   --header 'Accept: application/json' \
@@ -101,3 +109,6 @@ if [ ! -z "$release" ]; then
     echo "Error while releasing $stagedRepositoryId : $release."
     exit 1
 fi
+
+echo "Done releasing $3."
+
