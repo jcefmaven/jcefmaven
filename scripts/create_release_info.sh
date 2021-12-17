@@ -68,12 +68,12 @@ echo "release_name=MVN $mvn_version + JCEF $jcef_commit + CEF $cef_version" >> $
   echo "\`\`\`"
   echo "**Test results of this release**"
   echo "These test results are provided by developers like yourself. If the platform you are currently running on is marked as \`untested\` below, please consider submitting a test report. You can report your test results using a [new issue](https://github.com/jcefmaven/jcefmaven/issues/new/choose) in just a minute! It will help other developers in choosing a stable version. Thank you!"
-  echo "|  | <img src=\"https://simpleicons.org/icons/linux.svg\" alt=\"linux\" width=\"32\" height=\"32\"> | <img src=\"https://simpleicons.org/icons/windows.svg\" alt=\"windows\" width=\"32\" height=\"32\"> | <img src=\"https://simpleicons.org/icons/apple.svg\" alt=\"macosx\" width=\"32\" height=\"32\"> |"
+  echo "|  | <a href="#"><img src=\"https://simpleicons.org/icons/linux.svg\" alt=\"linux\" width=\"32\" height=\"32\"></a> | <a href="#"><img src=\"https://simpleicons.org/icons/windows.svg\" alt=\"windows\" width=\"32\" height=\"32\"></a> | <a href="#"><img src=\"https://simpleicons.org/icons/apple.svg\" alt=\"macosx\" width=\"32\" height=\"32\"></a> |"
   echo "|---|---|---|---|"
-  echo "|amd64|![Untested](https://img.shields.io/badge/linux--amd64-Untested-lightgrey)|![Untested](https://img.shields.io/badge/windows--amd64-Untested-lightgrey)|![Untested](https://img.shields.io/badge/macosx--amd64-Untested-lightgrey)|"
-  echo "|arm64|![Untested](https://img.shields.io/badge/linux--arm64-Untested-lightgrey)|![Untested](https://img.shields.io/badge/windows--arm64-Untested-lightgrey)|![Untested](https://img.shields.io/badge/macosx--arm64-Untested-lightgrey)|"
-  echo "|i386|![Untested](https://img.shields.io/badge/linux--i386-Untested-lightgrey)|![Untested](https://img.shields.io/badge/windows--i386-Untested-lightgrey)| - |"
-  echo "|arm|![Untested](https://img.shields.io/badge/linux--arm-Untested-lightgrey)| - | - |"
+  echo "|amd64|[![Untested](https://img.shields.io/badge/linux--amd64-Untested-lightgrey)](#)|[![Untested](https://img.shields.io/badge/windows--amd64-Untested-lightgrey)](#)|[![Untested](https://img.shields.io/badge/macosx--amd64-Untested-lightgrey)](#)|"
+  echo "|arm64|[![Untested](https://img.shields.io/badge/linux--arm64-Untested-lightgrey)](#)|[![Untested](https://img.shields.io/badge/windows--arm64-Untested-lightgrey)](#)|[![Untested](https://img.shields.io/badge/macosx--arm64-Untested-lightgrey)](#)|"
+  echo "|i386|[![Untested](https://img.shields.io/badge/linux--i386-Untested-lightgrey)](#)|[![Untested](https://img.shields.io/badge/windows--i386-Untested-lightgrey)](#)| - |"
+  echo "|arm|[![Untested](https://img.shields.io/badge/linux--arm-Untested-lightgrey)](#)| - | - |"
 ) > ../release_message.md
 
 #Add build_meta.json

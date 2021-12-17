@@ -9,9 +9,9 @@
 
 **Supports**
 <table>
-  <tr><td align="right"><img src="https://simpleicons.org/icons/linux.svg" alt="linux" width="32" height="32"></td><td align="left">amd64, arm64, i386, arm</td></tr>
-  <tr><td align="right"><img src="https://simpleicons.org/icons/windows.svg" alt="windows" width="32" height="32"></td><td align="left">amd64, arm64, i386</td></tr>
-  <tr><td align="right"><img src="https://simpleicons.org/icons/apple.svg" alt="macosx" width="32" height="32"></td><td align="left">amd64, arm64</td></tr>
+  <tr><td align="right"><a href="#"><img src="https://simpleicons.org/icons/linux.svg" alt="linux" width="32" height="32"></a></td><td align="left">amd64, arm64, i386, arm</td></tr>
+  <tr><td align="right"><a href="#"><img src="https://simpleicons.org/icons/windows.svg" alt="windows" width="32" height="32"></a></td><td align="left">amd64, arm64, i386</td></tr>
+  <tr><td align="right"><a href="#"><img src="https://simpleicons.org/icons/apple.svg" alt="macosx" width="32" height="32"></a></td><td align="left">amd64, arm64</td></tr>
 </table>
   
 </div>
