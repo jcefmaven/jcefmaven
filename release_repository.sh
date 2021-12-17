@@ -40,9 +40,9 @@ echo "Waiting on close..."
 
 start=$(date +%s)
 while true ; do
-  # force timeout after 15 minutes
+  # force timeout after 45 minutes
   now=$(date +%s)
-  if [ $(( (now - start) / 60 )) -gt 15 ]; then
+  if [ $(( (now - start) / 60 )) -gt 45 ]; then
       echo "Closing process is too long, stopping the job (waiting for closing repository)."
       exit 1
   fi
@@ -76,9 +76,9 @@ echo "Waiting on transitioning..."
 
 start=$(date +%s)
 while true ; do
-  # force timeout after 5 minutes
+  # force timeout after 15 minutes
   now=$(date +%s)
-  if [ $(( (now - start) / 60 )) -gt 5 ]; then
+  if [ $(( (now - start) / 60 )) -gt 15 ]; then
       echo "Closing process is too long, stopping the job (waiting for transitioning state)."
       exit 1
   fi
