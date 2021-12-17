@@ -60,6 +60,9 @@ From there, continue to write your app using jcef as you are used to. You can ca
 
 If you need some code examples to create your first app, have a look at the [tests](jcefmaven/src/test) on this repository or at the [sample app](https://github.com/jcefmaven/jcefsampleapp).
 
+## Requirements
+- Java 8 or later
+
 ## Limitations
 - No OSR mode supported on win-arm64 (no jogamp)
 - `CefApp.addAppHandler(...)` should not be used. Use `builder.setAppHandler(...)` instead (requires a `CefMavenAppHandlerAdapter`)
