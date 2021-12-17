@@ -39,4 +39,4 @@ mv jcefmaven/target/jcefmaven-$mvn_version+$release_tag-sources.jar /jcefout
 mv jcefmaven/pom.xml /jcefout/jcefmaven-$mvn_version+$release_tag.pom
 
 #Done
-echo "Done generating api for $mvn_version+$release_tag"
+echo "Done generating jcefmaven for $mvn_version+$release_tag"
