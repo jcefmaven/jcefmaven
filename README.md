@@ -9,9 +9,9 @@
 
 **Supports**
 <table>
-  <tr><td align="right"><img src="https://simpleicons.org/icons/linux.svg" alt="linux" width="32" height="32"></td><td align="left">amd64, arm64, i386, arm</td></tr>
-  <tr><td align="right"><img src="https://simpleicons.org/icons/windows.svg" alt="windows" width="32" height="32"></td><td align="left">amd64, arm64, i386</td></tr>
-  <tr><td align="right"><img src="https://simpleicons.org/icons/apple.svg" alt="macosx" width="32" height="32"></td><td align="left">amd64, arm64</td></tr>
+  <tr><td align="right"><a href="#"><img src="https://simpleicons.org/icons/linux.svg" alt="linux" width="32" height="32"></a></td><td align="left">amd64, arm64, i386, arm</td></tr>
+  <tr><td align="right"><a href="#"><img src="https://simpleicons.org/icons/windows.svg" alt="windows" width="32" height="32"></a></td><td align="left">amd64, arm64, i386</td></tr>
+  <tr><td align="right"><a href="#"><img src="https://simpleicons.org/icons/apple.svg" alt="macosx" width="32" height="32"></a></td><td align="left">amd64, arm64</td></tr>
 </table>
   
 </div>
@@ -22,13 +22,13 @@
 <dependency>
     <groupId>me.friwi</groupId>
     <artifactId>jcefmaven</artifactId>
-    <version>v1.0.0+jcef-544024e+cef-95.7.14+g9f72f35+chromium-95.0.4638.69</version>
+    <version>v1.0.0+jcef-ae6912a+cef-95.7.14+g9f72f35+chromium-95.0.4638.69</version>
 </dependency>
 ```
 
 **Use with Gradle:**
 ```Gradle
-implementation 'me.friwi:jcefmaven:v1.0.0+jcef-544024e+cef-95.7.14+g9f72f35+chromium-95.0.4638.69'
+implementation 'me.friwi:jcefmaven:v1.0.0+jcef-ae6912a+cef-95.7.14+g9f72f35+chromium-95.0.4638.69'
 ```
 
 ---
