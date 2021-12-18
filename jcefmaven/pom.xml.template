@@ -10,7 +10,8 @@
     <groupId>me.friwi</groupId>
     <artifactId>jcefmaven</artifactId>
     <version>{mvn_version}+{release_tag}</version>
-    
+
+    <packaging>jar</packaging>    
     <name>JCef Maven</name>
     <description>This package provides wrappers to initialize the Java Chromium Embedded Framework</description>
     <url>https://github.com/jcefmaven/jcefmaven/</url>

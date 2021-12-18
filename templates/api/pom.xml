@@ -11,6 +11,7 @@
     <artifactId>jcef-api</artifactId>
     <version>{release_tag}</version>
 
+    <packaging>jar</packaging>
     <name>JCef API</name>
     <description>This package provides a Java API for the Chromium Embedded Framework</description>
     <url>https://bitbucket.org/chromiumembedded/java-cef/</url>

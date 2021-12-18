@@ -11,6 +11,7 @@
     <artifactId>jcef-natives-{platform}</artifactId>
     <version>{release_tag}</version>
 
+    <packaging>jar</packaging>
     <name>JCef natives for {platform}</name>
     <description>This package provides natives for the Java Chromium Embedded Framework</description>
     <url>https://bitbucket.org/chromiumembedded/java-cef/</url>

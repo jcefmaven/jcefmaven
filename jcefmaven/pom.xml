@@ -8,6 +8,7 @@
     <artifactId>jcefmaven</artifactId>
     <version>v1.0.0+jcef-ae6912a+cef-95.7.14+g9f72f35+chromium-95.0.4638.69</version>
 
+    <packaging>jar</packaging>
     <name>JCef Maven</name>
     <description>This package provides wrappers to initialize the Java Chromium Embedded Framework</description>
     <url>https://github.com/jcefmaven/jcefmaven/</url>
