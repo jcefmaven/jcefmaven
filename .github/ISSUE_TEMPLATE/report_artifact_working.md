@@ -1,13 +1,13 @@
 ---
 name: Report an artifact as tested
 about: This helps to mark certain versions as tested and helps other users in their version decision.
-title: '[TR] Artifact <TAG> on <OS>/<ARCH> is <working/not working>'
+title: '[TR] Test report'
 labels: test report
 assignees: ''
 
 ---
 
-Please follow the format strictly and do not modify the template. Please *always* test with the official sample app [here](https://github.com/jcefmaven/jcefsampleapp) (you will need to clone it and modify the version of JCef that is being used). You can add your own text under `Additional information`.
+Please follow the format strictly and do not modify the template. Please *always* test with the official sample app [here](https://github.com/jcefmaven/jcefsampleapp) (you will need to download the version using the maven artifact you want to test). You can add your own text under `Additional information`. In case the build was not working, please consider adding the console output, screenshots and steps to reproduce.
 
 **Tag**
 v1.0.0+jcef-XXXXXXX+cef-...
@@ -15,7 +15,7 @@ v1.0.0+jcef-XXXXXXX+cef-...
 **OS (linux/windows/macosx)**
 linux
 
-**OS Version/Flavor (e.g. Ubuntu 20.04, Windows 10, Big Sur)**
+**Version/Flavor (e.g. Ubuntu 20.04, Windows 10, Big Sur)**
 Ubuntu 20.04
 
 **Arch (amd64/i386/arm64/arm)**
