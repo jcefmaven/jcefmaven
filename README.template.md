@@ -5,7 +5,9 @@
 <h4>Independent project to produce maven artifacts for the JCef project</h4>
 <h6>Visit the JCEF repo at <a href="https://bitbucket.org/chromiumembedded/java-cef/src/master/">bitbucket</a> or <a href="https://github.com/chromiumembedded/java-cef">github</a> </h6>
 
-<h4> </h4>
+<h5><img alt="browser" src="demo.png"></img><br>
+Embed a complete browser in your Java Apps - supports Java 8+</h5>
+<br>
 
 **Supports**
 <table>
