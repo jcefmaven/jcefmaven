@@ -2,15 +2,15 @@
 
 if [ ! $# -eq 2 ]
   then
-    echo "Usage: ./set_build_info.sh <build_meta_url> <actionsnumber>"
+    echo "Usage: ./set_build_info.sh <build_meta_url> <mvn_version>"
     echo ""
     echo "build_meta_url: The url to download build_meta.json from"
-    echo "actionsnumber: The number of the current build"
+    echo "mvn_version: The maven version to export to"
     exit 1
 fi
 
 #Print build meta location
-echo "Initializing for build from $1..."
+echo "Initializing for build from $1 for $2..."
 
 #Download build_meta.json and import to local environment
 export $(curl -s -L $1 | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]")
@@ -24,7 +24,5 @@ export gluegen_git=https://jogamp.org/cgit/gluegen.git
 export gluegen_commit=0b441cfc14947b1c8cabdc87705ae95a0afec4d9 #From META-INF
 
 #Set jcefmaven information
-export tag_version=1.0
-#Do not edit the mvn_version, edit the tag version!
-export mvn_version=v$tag_version.$2
+export mvn_version=$2
 

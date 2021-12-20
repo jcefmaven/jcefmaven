@@ -9,7 +9,7 @@
 
     <groupId>me.friwi</groupId>
     <artifactId>jcefmaven</artifactId>
-    <version>{mvn_version}+{release_tag}</version>
+    <version>{mvn_version}</version>
 
     <packaging>jar</packaging>    
     <name>JCef Maven</name>

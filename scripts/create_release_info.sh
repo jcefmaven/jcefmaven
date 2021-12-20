@@ -1,12 +1,13 @@
 #!/bin/bash
 
-if [ ! $# -eq 3 ]
+if [ ! $# -eq 4 ]
   then
-    echo "Usage: ./create_release_info.sh <build_meta> <actionsurl> <actionsrunnumber>"
+    echo "Usage: ./create_release_info.sh <build_meta> <actionsurl> <actionsrunnumber> <mvn_version>"
     echo ""
     echo "build_meta: the url to fetch the build meta from"
     echo "actionsurl: the url pointing to the builder job"
     echo "actionsrunnumber: the number of the current build"
+    echo "mvn_version: The maven version to export to"
     exit 1
 fi
 
@@ -14,7 +15,7 @@ fi
 cd "$( dirname "$0" )"
 
 #Set build info
-. set_build_info.sh $1 $3
+. set_build_info.sh $1 $4
 
 #Create release_info dir and cd to it
 cd ..
@@ -32,12 +33,10 @@ commit_message=$(git log -1 --pretty=%B)
 
 #Build final release information
 #Tag
-release_tag=$(echo "$mvn_version+jcef-$jcef_commit+cef-$cef_version" | awk '{print}' ORS='')
-
-echo "release_tag_name=$tag_version.$3" >> $GITHUB_ENV
+echo "release_tag_name=$4" >> $GITHUB_ENV
 
 #Name
-echo "release_name=MVN $mvn_version + JCEF $jcef_commit + CEF $cef_version" >> $GITHUB_ENV 
+echo "release_name=JCEF $mvn_version" >> $GITHUB_ENV 
 
 #Readme
 (
@@ -45,7 +44,7 @@ echo "release_name=MVN $mvn_version + JCEF $jcef_commit + CEF $cef_version" >> $
   echo ""
   echo "Build: [GitHub Actions #$3]($2)"
   echo "MVN version: $mvn_version"
-  echo "JCEF version: $jcef_commit"
+  echo "JCEF commit: $jcef_commit"
   echo "CEF version: $cef_version"
   echo ""
   echo "**Use with Maven:**"
@@ -53,13 +52,13 @@ echo "release_name=MVN $mvn_version + JCEF $jcef_commit + CEF $cef_version" >> $
   echo "<dependency>"
   echo "    <groupId>me.friwi</groupId>"
   echo "    <artifactId>jcefmaven</artifactId>"
-  echo "    <version>$release_tag</version>"
+  echo "    <version>$mvn_version</version>"
   echo "</dependency>"
   echo "\`\`\`"
   echo ""
   echo "**Use with Gradle:**"
   echo "\`\`\`"
-  echo "implementation 'me.friwi:jcefmaven:$release_tag'"
+  echo "implementation 'me.friwi:jcefmaven:$mvn_version'"
   echo "\`\`\`"
   echo ""
   echo "**Changes from previous release:**"

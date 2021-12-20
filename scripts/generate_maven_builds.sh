@@ -2,10 +2,10 @@
 
 if [ ! $# -eq 2 ]
   then
-    echo "Usage: ./generate_maven_builds.sh <build_meta_url> <actionsnumber>"
+    echo "Usage: ./generate_maven_builds.sh <build_meta_url> <mvn_version>"
     echo ""
     echo "build_meta_url: The url to download build_meta.json from"
-    echo "actionsnumber: The number of the current build"
+    echo "mvn_version: The maven version to export to"
     exit 1
 fi
 
@@ -18,7 +18,7 @@ cd "$( dirname "$0" )"
 #Clear export dir
 rm -rf /jcefout/*
 
-echo "Creating maven artifacts for $mvn_version+$release_tag..."
+echo "Creating maven artifacts for $mvn_version - $release_tag..."
 
 #jogl-all
 echo "###########################################"

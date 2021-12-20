@@ -7,4 +7,4 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./out:/jcefout
-    command: "./scripts/generate_maven_builds.sh ${BUILD_META_URL} ${ACTIONS_NUMBER}"
+    command: "./scripts/generate_maven_builds.sh ${BUILD_META_URL} ${MVN_VERSION}"

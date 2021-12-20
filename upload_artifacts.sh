@@ -2,7 +2,7 @@
 
 if [ ! $# -eq 5 ]
   then
-    echo "Usage: ./upload_artifacts.sh <build_meta_url> <stageRepoUrl> <releaseRepoUrl> <repo_id> <actionsnumber>"
+    echo "Usage: ./upload_artifacts.sh <build_meta_url> <stageRepoUrl> <releaseRepoUrl> <repo_id> <mvn_version>"
     echo "Release repo url should NOT end in /!"
     exit 1
 fi
@@ -18,7 +18,7 @@ rm -rf upload
 mkdir upload
 cp out/* upload/
 
-echo "Uploading maven artifacts for $mvn_version+$release_tag..."
+echo "Uploading maven artifacts for $mvn_version..."
 
 #Upload Jogamp libraries
 ./upload_artifact.sh $2 $3 $4 me.friwi jogl-all $jogl_build
@@ -28,7 +28,7 @@ echo "Uploading maven artifacts for $mvn_version+$release_tag..."
 ./upload_artifact.sh $2 $3 $4 me.friwi jcef-api $release_tag
 
 #Upload jcefmaven
-./upload_artifact.sh $2 $3 $4 me.friwi jcefmaven $mvn_version+$release_tag
+./upload_artifact.sh $2 $3 $4 me.friwi jcefmaven $mvn_version
 
 #Upload linux natives
 ./upload_artifact.sh $2 $3 $4 me.friwi jcef-natives-linux-amd64 $release_tag

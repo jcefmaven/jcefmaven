@@ -6,6 +6,9 @@ on:
       build_meta:
         description: 'Build meta to use as source'
         required: true
+      mvn_version:
+        description: 'Maven version to use'
+        required: true
 
 jobs:
   maven-release:
@@ -16,12 +19,12 @@ jobs:
       - name: Update README.md
         run: |
           chmod +x update_readme.sh
-          ./update_readme.sh ${{ github.event.inputs.build_meta }} ${{github.run_number}}
+          ./update_readme.sh ${{ github.event.inputs.build_meta }} ${{ github.event.inputs.mvn_version }}
       - name: Generate release info
         run: |
           cd scripts
           chmod +x create_release_info.sh
-          ./create_release_info.sh ${{ github.event.inputs.build_meta }} https://github.com/${{github.repository}}/actions/runs/${{github.run_id}} ${{github.run_number}}
+          ./create_release_info.sh ${{ github.event.inputs.build_meta }} https://github.com/${{github.repository}}/actions/runs/${{github.run_id}} ${{github.run_number}} ${{ github.event.inputs.mvn_version }}
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v1
@@ -39,7 +42,7 @@ jobs:
           asset_name: build_meta.json                                     
           asset_content_type: application/json
       - name: Create artifacts
-        run: chmod +x generate_artifacts.sh && ./generate_artifacts.sh ${{ github.event.inputs.build_meta }} ${{github.run_number}}
+        run: chmod +x generate_artifacts.sh && ./generate_artifacts.sh ${{ github.event.inputs.build_meta }} ${{ github.event.inputs.mvn_version }}
       - name: Set up Java for publishing to GitHub Packages
         uses: actions/setup-java@v2
         with:
@@ -49,7 +52,7 @@ jobs:
           gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }} # Value of the GPG private key to import
           gpg-passphrase: MAVEN_GPG_PASSPHRASE # env variable for GPG private key passphrase
       - name: Publish to GitHub Packages
-        run: chmod +x upload_artifacts.sh && ./upload_artifacts.sh ${{ github.event.inputs.build_meta }} https://maven.pkg.github.com/jcefmaven/jcefmaven/ https://maven.pkg.github.com/jcefmaven/jcefmaven github ${{github.run_number}}
+        run: chmod +x upload_artifacts.sh && ./upload_artifacts.sh ${{ github.event.inputs.build_meta }} https://maven.pkg.github.com/jcefmaven/jcefmaven/ https://maven.pkg.github.com/jcefmaven/jcefmaven github ${{ github.event.inputs.mvn_version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
@@ -64,7 +67,7 @@ jobs:
           gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY2 }} # Value of the GPG private key to import (Another key, to fix cleanup errors)
           gpg-passphrase: MAVEN_GPG_PASSPHRASE # env variable for GPG private key passphrase
       - name: Publish to Apache Maven Central
-        run: chmod +x upload_artifacts.sh && ./upload_artifacts.sh ${{ github.event.inputs.build_meta }} https://oss.sonatype.org/service/local/staging/deploy/maven2/ https://repo.maven.apache.org/maven2 ossrh ${{github.run_number}}
+        run: chmod +x upload_artifacts.sh && ./upload_artifacts.sh ${{ github.event.inputs.build_meta }} https://oss.sonatype.org/service/local/staging/deploy/maven2/ https://repo.maven.apache.org/maven2 ossrh ${{ github.event.inputs.mvn_version }}
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
           MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}

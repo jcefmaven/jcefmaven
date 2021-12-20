@@ -2,10 +2,10 @@
 
 if [ ! $# -eq 2 ]
   then
-    echo "Usage: ./update_readme.sh <build_meta_url> <actionsnumber>"
+    echo "Usage: ./update_readme.sh <build_meta_url> <mvn_version>"
     echo ""
     echo "build_meta_url: The url to download build_meta.json from"
-    echo "actionsnumber: The number of the current build"
+    echo "mvn_version: The maven version to export to"
     exit 1
 fi
 
@@ -22,5 +22,5 @@ cd "$( dirname "$0" )"
 git add README.md
 git config user.name github-actions
 git config user.email github-actions@github.com
-git commit -m "Update README.md to $mvn_version+$release_tag"
+git commit -m "Update README.md to $mvn_version"
 git push -u origin master
