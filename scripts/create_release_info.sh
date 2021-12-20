@@ -14,7 +14,7 @@ fi
 cd "$( dirname "$0" )"
 
 #Set build info
-. set_build_info.sh $1
+. set_build_info.sh $1 $3
 
 #Create release_info dir and cd to it
 cd ..

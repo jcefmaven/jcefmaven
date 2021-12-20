@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if [ ! $# -eq 4 ]
+if [ ! $# -eq 5 ]
   then
-    echo "Usage: ./upload_artifacts.sh <build_meta_url> <stageRepoUrl> <releaseRepoUrl> <repo_id>"
+    echo "Usage: ./upload_artifacts.sh <build_meta_url> <stageRepoUrl> <releaseRepoUrl> <repo_id> <actionsnumber>"
     echo "Release repo url should NOT end in /!"
     exit 1
 fi
@@ -11,7 +11,7 @@ fi
 cd "$( dirname "$0" )"
 
 #Set build info
-. scripts/set_build_info.sh $1
+. scripts/set_build_info.sh $1 $5
 
 #Move artifacts to a non-protected folder
 rm -rf upload

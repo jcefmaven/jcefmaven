@@ -1,10 +1,11 @@
 #!/bin/bash
 
-if [ ! $# -eq 1 ]
+if [ ! $# -eq 2 ]
   then
-    echo "Usage: ./update_readme.sh <build_meta_url>"
+    echo "Usage: ./update_readme.sh <build_meta_url> <actionsnumber>"
     echo ""
     echo "build_meta_url: The url to download build_meta.json from"
+    echo "actionsnumber: The number of the current build"
     exit 1
 fi
 
@@ -12,7 +13,7 @@ fi
 cd "$( dirname "$0" )"
 
 #Set build info
-. scripts/set_build_info.sh $1
+. scripts/set_build_info.sh $1 $2
 
 #Update readme
 ./scripts/fill_template.sh README.template.md README.md

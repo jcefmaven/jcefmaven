@@ -1,10 +1,11 @@
 #!/bin/bash
 
-if [ ! $# -eq 1 ]
+if [ ! $# -eq 2 ]
   then
-    echo "Usage: ./set_build_info.sh <build_meta_url>"
+    echo "Usage: ./set_build_info.sh <build_meta_url> <actionsnumber>"
     echo ""
     echo "build_meta_url: The url to download build_meta.json from"
+    echo "actionsnumber: The number of the current build"
     exit 1
 fi
 
@@ -25,5 +26,5 @@ export gluegen_commit=0b441cfc14947b1c8cabdc87705ae95a0afec4d9 #From META-INF
 #Set jcefmaven information
 export tag_version=1.0
 #Do not edit the mvn_version, edit the tag version!
-export mvn_version=v$tag_version.0
+export mvn_version=v$tag_version.$2
 
