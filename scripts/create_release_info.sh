@@ -36,7 +36,7 @@ commit_message=$(git log -1 --pretty=%B)
 echo "release_tag_name=$4" >> $GITHUB_ENV
 
 #Name
-echo "release_name=JCEF $mvn_version" >> $GITHUB_ENV 
+echo "release_name=JCEF Maven $mvn_version" >> $GITHUB_ENV 
 
 #Readme
 (
