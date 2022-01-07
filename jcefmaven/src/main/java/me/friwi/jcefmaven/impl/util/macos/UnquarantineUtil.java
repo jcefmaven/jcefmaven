@@ -3,6 +3,8 @@ package me.friwi.jcefmaven.impl.util.macos;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Util used to unquarantine directories recursively on MacOS.
@@ -11,16 +13,22 @@ import java.util.Objects;
  * @author Fritz Windisch
  */
 public class UnquarantineUtil {
-    public static void unquarantine(File dir) throws IOException {
+    private static final Logger LOGGER = Logger.getLogger(UnquarantineUtil.class.getName());
+
+    public static void unquarantine(File dir) {
         Objects.requireNonNull(dir, "dir cannot be null");
-        Process p = Runtime.getRuntime().exec("xattr -r -w com.apple.quarantine \"00c1;;;\" " + dir.getAbsolutePath());
         try {
-            if (p.waitFor() > 0) {
-                //Command failed
-                throw new IOException("Failed to update xattr!");
+            Process p = Runtime.getRuntime().exec(new String[]{"xattr", "-r", "-w", "com.apple.quarantine", "\"00c1;;;\"", dir.getAbsolutePath()});
+            try {
+                if (p.waitFor() > 0) {
+                    //Command failed
+                    LOGGER.log(Level.WARNING, "Failed to update xattr! Command returned non-zero exit code.");
+                }
+            } catch (InterruptedException e) {
+                LOGGER.log(Level.WARNING, "Failed to update xattr! Command got interrupted.", e);
             }
-        } catch (InterruptedException e) {
-            throw new IOException("Failed to update xattr!", e);
+        }catch (IOException e) {
+            LOGGER.log(Level.WARNING, "Failed to update xattr! IOException on command execution: "+e.getMessage());
         }
     }
 }
