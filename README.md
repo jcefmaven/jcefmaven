@@ -50,7 +50,7 @@ CefAppBuilder builder = new CefAppBuilder();
 //Configure the builder instance
 builder.setInstallDir(new File("jcef-bundle")); //Default
 builder.setProgressHandler(new ConsoleProgressHandler()); //Default
-builder.addJCefArgs("--disable-gpu"); //Just an example
+builder.addJcefArgs("--disable-gpu"); //Just an example
 builder.getCefSettings().windowless_rendering_enabled = true; //Default - select OSR mode
 
 //Set an app handler. Do not use CefApp.addAppHandler(...), it will break your code on MacOSX!
