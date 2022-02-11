@@ -36,8 +36,12 @@ public class CefInitializer {
             SystemBootstrap.setLoader(libname -> {
             });
 
-            //Load native libraries for jcef, as the jvm does not update the java library path
-            System.loadLibrary("jawt");
+            try {
+                // Load native libraries for jcef, as the jvm does not update the java library path
+                System.loadLibrary("jawt");
+            } catch (UnsatisfiedLinkError e) {
+                // ignore it
+            }
 
             //Platform dependent loading code
             if (EnumPlatform.getCurrentPlatform().getOs().isWindows()) {
