@@ -181,6 +181,11 @@ public class CefAppBuilder {
             //Clear install dir
             FileUtils.deleteDir(this.installDir);
             if (!this.installDir.mkdirs()) throw new IOException("Could not create installation directory");
+            //Lock installation
+            File installLock = new File(installDir, "install.lock");
+            if (!(installLock.createNewFile())) {
+                throw new IOException("Could not create install.lock to complete installation");
+            }
             //Fetch a native input stream
             InputStream nativesIn = PackageClasspathStreamer.streamNatives(
                     CefBuildInfo.fromClasspath(), EnumPlatform.getCurrentPlatform());
@@ -221,9 +226,8 @@ public class CefAppBuilder {
             if (EnumPlatform.getCurrentPlatform().getOs().isMacOSX()) {
                 UnquarantineUtil.unquarantine(this.installDir);
             }
-            //Lock installation
-            if (!(new File(installDir, "install.lock").createNewFile())) {
-                throw new IOException("Could not create install.lock to complete installation");
+            if(!(installLock.delete())) {
+                throw new IOException("Could not remove install.lock");
             }
         }
         this.progressHandler.handleProgress(EnumProgress.INITIALIZING, EnumProgress.NO_ESTIMATION);
