@@ -17,6 +17,9 @@ import java.util.Objects;
  * @author Fritz Windisch
  */
 public class CefInitializer {
+    
+    private static final Logger LOGGER = Logger.getLogger(CefInitializer.class.getName());
+    
     private static final String JAVA_LIBRARY_PATH = "java.library.path";
 
     public static CefApp initialize(File installDir, List<String> cefArgs, CefSettings cefSettings) throws UnsupportedPlatformException, CefInitializationException {
@@ -36,8 +39,12 @@ public class CefInitializer {
             SystemBootstrap.setLoader(libname -> {
             });
 
-            //Load native libraries for jcef, as the jvm does not update the java library path
-            System.loadLibrary("jawt");
+            try {
+                // Load native libraries for jcef, as the jvm does not update the java library path
+                System.loadLibrary("jawt");
+            } catch (UnsatisfiedLinkError e) {
+                LOGGER.warning("Error while loading jawt library: " + e.getMessage())
+            }
 
             //Platform dependent loading code
             if (EnumPlatform.getCurrentPlatform().getOs().isWindows()) {
