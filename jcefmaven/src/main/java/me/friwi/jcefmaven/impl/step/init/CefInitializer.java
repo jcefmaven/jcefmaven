@@ -9,6 +9,7 @@ import org.cef.SystemBootstrap;
 
 import java.io.File;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.Objects;
 
 /**
@@ -43,7 +44,7 @@ public class CefInitializer {
                 // Load native libraries for jcef, as the jvm does not update the java library path
                 System.loadLibrary("jawt");
             } catch (UnsatisfiedLinkError e) {
-                LOGGER.warning("Error while loading jawt library: " + e.getMessage())
+                LOGGER.warning("Error while loading jawt library: " + e.getMessage());
             }
 
             //Platform dependent loading code
