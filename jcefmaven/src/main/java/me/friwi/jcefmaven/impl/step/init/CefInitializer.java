@@ -43,7 +43,7 @@ public class CefInitializer {
                 // Load native libraries for jcef, as the jvm does not update the java library path
                 System.loadLibrary("jawt");
             } catch (UnsatisfiedLinkError e) {
-                LOGGER.warning("A error thrown while loading jawt library: " + e.getMessage())
+                LOGGER.warning("Error while loading jawt library: " + e.getMessage())
             }
 
             //Platform dependent loading code
