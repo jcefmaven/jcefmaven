@@ -2,11 +2,11 @@ package me.friwi.jcefmaven.impl.step.fetch;
 
 import me.friwi.jcefmaven.CefBuildInfo;
 import me.friwi.jcefmaven.EnumPlatform;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Objects;
@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 public class PackageDownloader {
     private static final Logger LOGGER = Logger.getLogger(PackageDownloader.class.getName());
 
-    private static final String DOWNLOAD_URL = "https://github.com/jcefmaven/jcefmaven/releases/download/{tag}/jcef-natives-{platform}-{tag}.jar";
+    private static final String DOWNLOAD_URL = "https://github.com/jcefmaven/jcefmaven/releases/download/{mvn_version}/jcef-natives-{platform}-{tag}.jar";
     private static final String FALLBACK_DOWNLOAD_URL = "https://repo.maven.apache.org/maven2/me/friwi/" +
             "jcef-natives-{platform}/{tag}/jcef-natives-{platform}-{tag}.jar";
 
@@ -38,10 +38,13 @@ public class PackageDownloader {
         if (!destination.createNewFile()) {
             throw new IOException("Could not create target file " + destination.getAbsolutePath());
         }
+        //Load maven version
+        String mvn_version = loadJCefMavenVersion();
         //Open connection with authentication to github
         URL url = new URL(DOWNLOAD_URL
                 .replace("{platform}", platform.getIdentifier())
-                .replace("{tag}", info.getReleaseTag()));
+                .replace("{tag}", info.getReleaseTag())
+                .replace("{mvn_version}", mvn_version));
         HttpURLConnection uc = (HttpURLConnection) url.openConnection();
         InputStream in = null;
         try {
@@ -82,5 +85,17 @@ public class PackageDownloader {
         fos.close();
         in.close();
         uc.disconnect();
+    }
+
+    private static String loadJCefMavenVersion() throws IOException {
+        JSONParser parser = new JSONParser();
+        Object object;
+        try {
+            object = parser.parse(new InputStreamReader(PackageDownloader.class.getResourceAsStream("/jcefmaven_build_meta.json")));
+        } catch (Exception e) {
+            throw new IOException("Invalid json content in jcefmaven_build_meta.json", e);
+        }
+        if (!(object instanceof JSONObject)) throw new IOException("jcefmaven_build_meta.json did not contain a valid json body");
+        return (String) ((JSONObject) object).get("version");
     }
 }

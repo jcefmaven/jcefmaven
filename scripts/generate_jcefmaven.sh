@@ -19,6 +19,10 @@ cp -r ../jcefmaven .
 rm -f jcefmaven/pom.xml
 ./../scripts/fill_template.sh jcefmaven/pom.xml.template jcefmaven/pom.xml
 
+#Generate metadata resource
+rm -f jcefmaven/src/main/resources/jcefmaven_build_meta.json
+./../scripts/fill_template.sh jcefmaven/src/main/resources/jcefmaven_build_meta.json.template jcefmaven/src/main/resources/jcefmaven_build_meta.json
+
 #Install required artifacts to local repo
 mvn install:install-file -Dfile=/jcefout/jogl-all-$jogl_build.jar -DpomFile=/jcefout/jogl-all-$jogl_build.pom
 mvn install:install-file -Dfile=/jcefout/gluegen-rt-$jogl_build.jar -DpomFile=/jcefout/gluegen-rt-$jogl_build.pom

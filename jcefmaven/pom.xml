@@ -49,7 +49,7 @@
         <dependency>
             <groupId>me.friwi</groupId>
             <artifactId>jcef-api</artifactId>
-            <version>jcef-ae6912a+cef-95.7.14+g9f72f35+chromium-95.0.4638.69</version>
+            <version>jcef-a51ff7f+cef-95.7.14+g9f72f35+chromium-95.0.4638.69</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
