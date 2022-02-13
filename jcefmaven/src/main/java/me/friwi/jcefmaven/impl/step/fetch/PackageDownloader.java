@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.logging.Level;
@@ -25,15 +23,7 @@ import java.util.logging.Logger;
 public class PackageDownloader {
     private static final Logger LOGGER = Logger.getLogger(PackageDownloader.class.getName());
 
-    //Do not waste your time on these credentials.
-    //Its a PAT that can only read packages. If you want to see them too,
-    //go here: https://github.com/orgs/jcefmaven/packages ;)
-    //The token is encoded to prevent github from deleting it.
-    private static final String USER = "jcefmavenbot";
-    private static final String TOKEN = new String(
-            Base64.getDecoder().decode("Z2hwX0JWblZMMmlpWG9sR2VneHBRYWZZeUVCUnlTOWl3djJ1UHJGag=="), StandardCharsets.UTF_8);
-    private static final String DOWNLOAD_URL = "https://maven.pkg.github.com/jcefmaven/jcefmaven/me/friwi/" +
-            "jcef-natives-{platform}/{tag}/jcef-natives-{platform}-{tag}.jar";
+    private static final String DOWNLOAD_URL = "https://github.com/jcefmaven/jcefmaven/releases/download/{tag}/jcef-natives-{platform}-{tag}.jar";
     private static final String FALLBACK_DOWNLOAD_URL = "https://repo.maven.apache.org/maven2/me/friwi/" +
             "jcef-natives-{platform}/{tag}/jcef-natives-{platform}-{tag}.jar";
 
@@ -53,9 +43,6 @@ public class PackageDownloader {
                 .replace("{platform}", platform.getIdentifier())
                 .replace("{tag}", info.getReleaseTag()));
         HttpURLConnection uc = (HttpURLConnection) url.openConnection();
-        String userpass = USER + ":" + TOKEN;
-        String basicAuth = "Basic " + new String(Base64.getEncoder().encode(userpass.getBytes()), StandardCharsets.UTF_8);
-        uc.setRequestProperty("Authorization", basicAuth);
         InputStream in = null;
         try {
             in = uc.getInputStream();
