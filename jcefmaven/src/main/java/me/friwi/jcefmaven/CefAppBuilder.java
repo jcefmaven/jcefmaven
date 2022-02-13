@@ -54,7 +54,7 @@ import java.util.zip.ZipInputStream;
 public class CefAppBuilder {
     private static final File DEFAULT_INSTALL_DIR = new File("jcef-bundle");
     private static final IProgressHandler DEFAULT_PROGRESS_HANDLER = new ConsoleProgressHandler();
-    private static final List<String> DEFAULT_JCEF_ARGS = new LinkedList<String>();
+    private static final List<String> DEFAULT_JCEF_ARGS = new LinkedList<>();
     private static final CefSettings DEFAULT_CEF_SETTINGS = new CefSettings();
     private final Object lock = new Object();
     private File installDir;
@@ -231,7 +231,11 @@ public class CefAppBuilder {
             //Setting the instance has to occur in the synchronized block
             //to prevent race conditions
             this.instance = CefInitializer.initialize(this.installDir, this.jcefArgs, this.cefSettings);
+            //Add shutdown hook to attempt disposing our instance on jvm exit
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> this.instance.dispose()));
+            //Notify progress handler
             this.progressHandler.handleProgress(EnumProgress.INITIALIZED, EnumProgress.NO_ESTIMATION);
+            //Resume waiting threads
             lock.notifyAll();
         }
         return this.instance;
