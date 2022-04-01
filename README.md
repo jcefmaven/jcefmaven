@@ -85,6 +85,21 @@ CefVersion cefVersion = cefApp.getVersion();
 ## Limitations
 - No OSR mode supported on win-arm64 (no jogamp)
 - `CefApp.addAppHandler(...)` should not be used. Use `builder.setAppHandler(...)` instead (requires a `CefMavenAppHandlerAdapter`)
+- To run on JDK 16 or later:
+
+To use on MacOSX, add the following JVM flags:
+```
+--add-opens java.desktop/sun.awt=ALL-UNNAMED
+--add-opens java.desktop/sun.lwawt=ALL-UNNAMED
+--add-opens java.desktop/sun.lwawt.macosx=ALL-UNNAMED
+```
+
+To use OSR (off-screen render) mode, add these flags for JOGL:
+```
+--add-exports java.base/java.lang=ALL-UNNAMED
+--add-exports java.desktop/sun.awt=ALL-UNNAMED
+--add-exports java.desktop/sun.java2d=ALL-UNNAMED
+```
 
 ## Reporting bugs
 Please only report bugs here that are related to the maven artifacts.
