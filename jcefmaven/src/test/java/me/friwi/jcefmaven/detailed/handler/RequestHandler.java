@@ -167,11 +167,6 @@ public class RequestHandler extends CefResourceRequestHandlerAdapter implements 
     }
 
     @Override
-    public void onPluginCrashed(CefBrowser browser, String pluginPath) {
-        System.out.println("Plugin " + pluginPath + "CRASHED");
-    }
-
-    @Override
     public void onRenderProcessTerminated(CefBrowser browser, TerminationStatus status) {
         System.out.println("render process terminated: " + status);
     }
