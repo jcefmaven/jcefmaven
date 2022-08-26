@@ -15,10 +15,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -63,6 +60,7 @@ public class CefAppBuilder {
     private final CefSettings cefSettings;
     private CefApp instance = null;
     private boolean building = false;
+    private Set<String> mirrors;
 
     /**
      * Constructs a new CefAppBuilder instance.
@@ -73,6 +71,9 @@ public class CefAppBuilder {
         jcefArgs = new LinkedList<>();
         jcefArgs.addAll(DEFAULT_JCEF_ARGS);
         cefSettings = DEFAULT_CEF_SETTINGS.clone();
+        mirrors = new HashSet<>();
+        mirrors.add("https://github.com/jcefmaven/jcefmaven/releases/download/{mvn_version}/jcef-natives-{platform}-{tag}.jar");
+        mirrors.add("https://repo.maven.apache.org/maven2/me/friwi/jcef-natives-{platform}/{tag}/jcef-natives-{platform}-{tag}.jar");
     }
 
     /**
@@ -140,10 +141,39 @@ public class CefAppBuilder {
 
     /**
      * Attach your own adapter to handle certain events in CEF.
+     *
      * @param handlerAdapter the adapter to attach
      */
-    public void setAppHandler(MavenCefAppHandlerAdapter handlerAdapter){
+    public void setAppHandler(MavenCefAppHandlerAdapter handlerAdapter) {
         CefApp.addAppHandler(handlerAdapter);
+    }
+
+    /**
+     * Get a copy of all mirrors that are currently in use. To add another mirror, use the setter.
+     * Mirror urls can contain placeholders that are replaced when a fetch is attempted:
+     * <br/>
+     * {mvn_version}: The version of jcefmaven (e.g. 100.0.14.3) <br/>
+     * {platform}: The desired platform for the download (e.g. linux-amd64) <br/>
+     * {tag}: The desired version tag for the download (e.g. jcef-08efede+cef-100.0.14+g4e5ba66+chromium-100.0.4896.75)
+     *
+     * @return A copy of all mirrors that are currently in use. First element will be attempted first.
+     */
+    public Collection<String> getMirrors() {
+        return new HashSet<>(mirrors);
+    }
+
+    /**
+     * Set mirror urls that should be used when downloading jcef. First element will be attempted first.
+     * Mirror urls can contain placeholders that are replaced when a fetch is attempted:
+     * <br/>
+     * {mvn_version}: The version of jcefmaven (e.g. 100.0.14.3) <br/>
+     * {platform}: The desired platform for the download (e.g. linux-amd64) <br/>
+     * {tag}: The desired version tag for the download (e.g. jcef-08efede+cef-100.0.14+g4e5ba66+chromium-100.0.4896.75)
+     */
+    public void setMirrors(Collection<String> mirrors) {
+        Objects.requireNonNull(mirrors, "mirrors can not be null");
+        this.mirrors.clear();
+        this.mirrors.addAll(mirrors);
     }
 
     /**
@@ -193,7 +223,7 @@ public class CefAppBuilder {
                         CefBuildInfo.fromClasspath(), EnumPlatform.getCurrentPlatform(),
                         download, f -> {
                             this.progressHandler.handleProgress(EnumProgress.DOWNLOADING, f);
-                        });
+                        }, mirrors);
                 nativesIn = new ZipInputStream(new FileInputStream(download));
                 ZipEntry entry;
                 boolean found = false;

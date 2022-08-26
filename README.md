@@ -61,6 +61,8 @@ CefApp app = builder.build();
 ```
 From there, continue to write your app using jcef as you are used to. You can call `builder.build()` as many times as you want. It is even thread-safe while initializing (will pause threads and return when initialization was completed).
 
+You can also set your custom download mirrors by using the `getMirrors()` and `setMirrors(Collection<String>)` methods. This currently defaults to this repository on `github.com` and alternatively to the central maven repo on `repo.maven.apache.org`. Further information can be found in the javadoc.
+
 If you need some code examples to create your first app, have a look at the [tests](jcefmaven/src/test) on this repository or at the [sample app](https://github.com/jcefmaven/jcefsampleapp).
 
 #### Some additional useful code snippets
