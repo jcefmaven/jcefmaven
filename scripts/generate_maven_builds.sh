@@ -56,12 +56,6 @@ echo "# Creating native build for linux-arm64   #"
 echo "###########################################"
 ./generate_natives.sh linux64 linux-arm64 $release_tag $download_url_linux_arm64
 
-#Linux i386
-echo "###########################################"
-echo "# Creating native build for linux-i386    #"
-echo "###########################################"
-./generate_natives.sh linux32 linux-i386 $release_tag $download_url_linux_i386
-
 #Linux arm
 echo "###########################################"
 echo "# Creating native build for linux-arm     #"

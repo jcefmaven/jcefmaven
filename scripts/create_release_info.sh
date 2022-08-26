@@ -71,7 +71,7 @@ echo "release_name=JCEF Maven $mvn_version" >> $GITHUB_ENV
   echo "|---|---|---|---|"
   echo "|amd64|[![Untested](https://img.shields.io/badge/linux--amd64-Untested-lightgrey)](#)|[![Untested](https://img.shields.io/badge/windows--amd64-Untested-lightgrey)](#)|[![Untested](https://img.shields.io/badge/macosx--amd64-Untested-lightgrey)](#)|"
   echo "|arm64|[![Untested](https://img.shields.io/badge/linux--arm64-Untested-lightgrey)](#)|[![Untested](https://img.shields.io/badge/windows--arm64-Untested-lightgrey)](#)|[![Untested](https://img.shields.io/badge/macosx--arm64-Untested-lightgrey)](#)|"
-  echo "|i386|[![Untested](https://img.shields.io/badge/linux--i386-Untested-lightgrey)](#)|[![Untested](https://img.shields.io/badge/windows--i386-Untested-lightgrey)](#)| - |"
+  echo "|i386| - |[![Untested](https://img.shields.io/badge/windows--i386-Untested-lightgrey)](#)| - |"
   echo "|arm|[![Untested](https://img.shields.io/badge/linux--arm-Untested-lightgrey)](#)| - | - |"
 ) > ../release_message.md
 

@@ -5,7 +5,7 @@ if [ ! $# -eq 4 ]
     echo "Usage: ./generate_natives.sh <bit> <platform> <release_tag> <artifact_url>"
     echo ""
     echo "bit: linux32, linux64, macos64, win32 or win64"
-    echo "platform: name of the platform to release for (e.g. linux-i386)"
+    echo "platform: name of the platform to release for (e.g. linux-amd64)"
     echo "release_tag: the tag of the release (jcef+X+cef+Y)"
     echo "artifact_url: URL to download artifact from"
     exit 1

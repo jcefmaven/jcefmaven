@@ -33,7 +33,6 @@ echo "Uploading maven artifacts for $mvn_version..."
 #Upload linux natives
 ./upload_artifact.sh $2 $3 $4 me.friwi jcef-natives-linux-amd64 $release_tag
 ./upload_artifact.sh $2 $3 $4 me.friwi jcef-natives-linux-arm64 $release_tag
-./upload_artifact.sh $2 $3 $4 me.friwi jcef-natives-linux-i386 $release_tag
 ./upload_artifact.sh $2 $3 $4 me.friwi jcef-natives-linux-arm $release_tag
 
 #Upload windows natives
