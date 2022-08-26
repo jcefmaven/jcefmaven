@@ -113,8 +113,7 @@ public class MenuBar extends JMenuBar {
             public void actionPerformed(ActionEvent e) {
                 CefRunFileDialogCallback callback = new CefRunFileDialogCallback() {
                     @Override
-                    public void onFileDialogDismissed(
-                            int selectedAcceptFilter, Vector<String> filePaths) {
+                    public void onFileDialogDismissed(Vector<String> filePaths) {
                         if (!filePaths.isEmpty()) {
                             try {
                                 SaveAs saveContent = new SaveAs(filePaths.get(0));
