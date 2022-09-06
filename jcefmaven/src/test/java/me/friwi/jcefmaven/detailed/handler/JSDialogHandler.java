@@ -12,8 +12,8 @@ import org.cef.misc.BoolRef;
 public class JSDialogHandler extends CefJSDialogHandlerAdapter {
     @Override
     public boolean onJSDialog(CefBrowser browser, String origin_url, JSDialogType dialog_type,
-            String message_text, String default_prompt_text, CefJSDialogCallback callback,
-            BoolRef suppress_message) {
+                              String message_text, String default_prompt_text, CefJSDialogCallback callback,
+                              BoolRef suppress_message) {
         if (message_text.equalsIgnoreCase("Never displayed")) {
             suppress_message.set(true);
             System.out.println(

@@ -42,8 +42,8 @@ public class TarGzExtractor {
                 } else {
                     int count;
                     byte[] data = new byte[BUFFER_SIZE];
-                    FileOutputStream fos = new FileOutputStream(f, false);
-                    try (BufferedOutputStream dest = new BufferedOutputStream(fos, BUFFER_SIZE)) {
+                    try (BufferedOutputStream dest = new BufferedOutputStream(
+                            new FileOutputStream(f, false), BUFFER_SIZE)) {
                         while ((count = tarIn.read(data, 0, BUFFER_SIZE)) != -1) {
                             dest.write(data, 0, count);
                         }

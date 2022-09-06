@@ -4,13 +4,8 @@
 
 package me.friwi.jcefmaven.detailed.ui;
 
-import java.awt.Dimension;
-
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
+import javax.swing.*;
+import java.awt.*;
 
 @SuppressWarnings("serial")
 public class StatusPanel extends JPanel {

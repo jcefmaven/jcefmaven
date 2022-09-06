@@ -4,19 +4,12 @@
 
 package me.friwi.jcefmaven.detailed.dialog;
 
-import java.awt.BorderLayout;
-import java.awt.Frame;
+import org.cef.callback.CefStringVisitor;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-
-import org.cef.callback.CefStringVisitor;
 
 @SuppressWarnings("serial")
 public class ShowTextDialog extends JDialog implements CefStringVisitor {

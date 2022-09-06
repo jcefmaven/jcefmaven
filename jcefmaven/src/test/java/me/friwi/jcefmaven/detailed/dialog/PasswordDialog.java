@@ -4,18 +4,12 @@
 
 package me.friwi.jcefmaven.detailed.dialog;
 
-import java.awt.Frame;
-import java.awt.GridLayout;
+import org.cef.callback.CefAuthCallback;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-
-import org.cef.callback.CefAuthCallback;
 
 @SuppressWarnings("serial")
 public class PasswordDialog extends JDialog implements Runnable {

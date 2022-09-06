@@ -7,9 +7,8 @@ package me.friwi.jcefmaven.detailed.dialog;
 import org.cef.callback.CefCallback;
 import org.cef.handler.CefLoadHandler.ErrorCode;
 
-import java.awt.Frame;
-
-import javax.swing.JOptionPane;
+import javax.swing.*;
+import java.awt.*;
 
 public class CertErrorDialog implements Runnable {
     private final Frame owner_;

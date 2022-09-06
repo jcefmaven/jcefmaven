@@ -28,11 +28,11 @@ public class AppHandler extends MavenCefAppHandlerAdapter {
     @Override
     public void onRegisterCustomSchemes(CefSchemeRegistrar registrar) {
         if (registrar.addCustomScheme(
-                    SearchSchemeHandler.scheme, true, false, false, false, true, false, false)) {
+                SearchSchemeHandler.scheme, true, false, false, false, true, false, false)) {
             System.out.println("Added scheme " + SearchSchemeHandler.scheme + "://");
         }
         if (registrar.addCustomScheme(
-                    ClientSchemeHandler.scheme, true, false, false, false, true, false, false)) {
+                ClientSchemeHandler.scheme, true, false, false, false, true, false, false)) {
             System.out.println("Added scheme " + ClientSchemeHandler.scheme + "://");
         }
     }
@@ -56,6 +56,12 @@ public class AppHandler extends MavenCefAppHandlerAdapter {
                 ClientSchemeHandler.scheme, ClientSchemeHandler.domain, new SchemeHandlerFactory());
     }
 
+    @Override
+    public void stateHasChanged(CefAppState state) {
+        System.out.println("AppHandler.stateHasChanged: " + state);
+        if (state == CefAppState.TERMINATED) System.exit(0);
+    }
+
     // (3) The SchemeHandlerFactory creates a new ResourceHandler instance for each
     //     request the user has send to the browser. The ResourceHandler is the
     //     responsible class to process and return the result of a received
@@ -70,11 +76,5 @@ public class AppHandler extends MavenCefAppHandlerAdapter {
                 return new ClientSchemeHandler();
             return null;
         }
-    }
-
-    @Override
-    public void stateHasChanged(CefAppState state) {
-        System.out.println("AppHandler.stateHasChanged: " + state);
-        if (state == CefAppState.TERMINATED) System.exit(0);
     }
 }

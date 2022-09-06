@@ -17,29 +17,20 @@ import org.cef.browser.CefMessageRouter;
 import org.cef.handler.CefDisplayHandlerAdapter;
 import org.cef.handler.CefFocusHandlerAdapter;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.KeyboardFocusManager;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 import java.io.IOException;
-
-import javax.swing.JFrame;
-import javax.swing.JTextField;
 
 /**
  * This is a simple example application using JCEF.
  * It displays a JFrame with a JTextField at its top and a CefBrowser in its
  * center. The JTextField is used to enter and assign an URL to the browser UI.
  * No additional handlers or callbacks are used in this example.
- *
+ * <p>
  * The number of used JCEF classes is reduced (nearly) to its minimum and should
  * assist you to get familiar with JCEF.
- *
+ * <p>
  * For a more feature complete example have also a look onto the example code
  * within the package "tests.detailed".
  */

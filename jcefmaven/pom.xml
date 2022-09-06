@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -12,14 +12,14 @@
     <name>JCef Maven</name>
     <description>This package provides wrappers to initialize the Java Chromium Embedded Framework</description>
     <url>https://github.com/jcefmaven/jcefmaven/</url>
-    
+
     <licenses>
         <license>
             <name>Apache-2.0 License</name>
             <url>https://github.com/jcefmaven/jcefmaven/blob/master/LICENSE</url>
         </license>
     </licenses>
-    
+
     <developers>
         <developer>
             <id>friwidev</id>
@@ -31,7 +31,7 @@
             </roles>
         </developer>
     </developers>
-    
+
     <scm>
         <connection>scm:git:https://github.com/jcefmaven/jcefmaven</connection>
         <developerConnection>scm:git:https://github.com/jcefmaven/jcefmaven</developerConnection>

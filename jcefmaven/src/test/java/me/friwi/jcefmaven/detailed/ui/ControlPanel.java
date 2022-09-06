@@ -4,22 +4,14 @@
 
 package me.friwi.jcefmaven.detailed.ui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
 import org.cef.OS;
 import org.cef.browser.CefBrowser;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 @SuppressWarnings("serial")
 public class ControlPanel extends JPanel {
@@ -28,8 +20,8 @@ public class ControlPanel extends JPanel {
     private final JButton reloadButton_;
     private final JTextField address_field_;
     private final JLabel zoom_label_;
-    private double zoomLevel_ = 0;
     private final CefBrowser browser_;
+    private double zoomLevel_ = 0;
 
     public ControlPanel(CefBrowser browser) {
         assert browser != null;

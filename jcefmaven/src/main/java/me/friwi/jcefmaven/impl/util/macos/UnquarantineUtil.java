@@ -27,8 +27,8 @@ public class UnquarantineUtil {
             } catch (InterruptedException e) {
                 LOGGER.log(Level.WARNING, "Failed to update xattr! Command got interrupted.", e);
             }
-        }catch (IOException e) {
-            LOGGER.log(Level.WARNING, "Failed to update xattr! IOException on command execution: "+e.getMessage());
+        } catch (IOException e) {
+            LOGGER.log(Level.WARNING, "Failed to update xattr! IOException on command execution: " + e.getMessage());
         }
     }
 }

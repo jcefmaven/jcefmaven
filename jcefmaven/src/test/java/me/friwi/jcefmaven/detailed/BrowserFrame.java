@@ -4,19 +4,18 @@
 
 package me.friwi.jcefmaven.detailed;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-
 import org.cef.CefApp;
 import org.cef.browser.CefBrowser;
 import org.cef.handler.CefLifeSpanHandlerAdapter;
 
+import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 public class BrowserFrame extends JFrame {
+    private static int browserCount_ = 0;
     private volatile boolean isClosed_ = false;
     private CefBrowser browser_ = null;
-    private static int browserCount_ = 0;
     private Runnable afterParentChangedAction_ = null;
 
     public BrowserFrame() {
@@ -81,6 +80,20 @@ public class BrowserFrame extends JFrame {
         });
     }
 
+    public void removeBrowser(Runnable r) {
+        System.out.println("BrowserFrame.removeBrowser");
+        afterParentChangedAction_ = r;
+        remove(browser_.getUIComponent());
+        // The removeNotify() notification should be sent as a result of calling remove().
+        // However, it isn't in all cases so we do it manually here.
+        browser_.getUIComponent().removeNotify();
+        browser_ = null;
+    }
+
+    public CefBrowser getBrowser() {
+        return browser_;
+    }
+
     public void setBrowser(CefBrowser browser) {
         if (browser_ == null) browser_ = browser;
 
@@ -119,19 +132,5 @@ public class BrowserFrame extends JFrame {
                 }
             }
         });
-    }
-
-    public void removeBrowser(Runnable r) {
-        System.out.println("BrowserFrame.removeBrowser");
-        afterParentChangedAction_ = r;
-        remove(browser_.getUIComponent());
-        // The removeNotify() notification should be sent as a result of calling remove().
-        // However, it isn't in all cases so we do it manually here.
-        browser_.getUIComponent().removeNotify();
-        browser_ = null;
-    }
-
-    public CefBrowser getBrowser() {
-        return browser_;
     }
 }

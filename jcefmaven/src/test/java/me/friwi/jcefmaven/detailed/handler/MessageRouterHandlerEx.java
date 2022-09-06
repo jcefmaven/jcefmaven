@@ -24,7 +24,7 @@ public class MessageRouterHandlerEx extends CefMessageRouterHandlerAdapter {
 
     @Override
     public boolean onQuery(CefBrowser browser, CefFrame frame, long query_id, String request,
-            boolean persistent, CefQueryCallback callback) {
+                           boolean persistent, CefQueryCallback callback) {
         if (request.startsWith("hasExtension")) {
             if (router_ != null)
                 callback.success("");
@@ -57,12 +57,14 @@ public class MessageRouterHandlerEx extends CefMessageRouterHandlerAdapter {
     private class JavaVersionMessageRouter extends CefMessageRouterHandlerAdapter {
         @Override
         public boolean onQuery(CefBrowser browser, CefFrame frame, long query_id, String request,
-                boolean persistent, CefQueryCallback callback) {
+                               boolean persistent, CefQueryCallback callback) {
             if (request.startsWith("jcefJava")) {
                 callback.success(System.getProperty("java.version"));
                 return true;
             }
             return false;
-        };
+        }
+
+        ;
     }
 }

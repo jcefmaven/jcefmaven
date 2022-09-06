@@ -63,6 +63,8 @@ public class CefBuildInfo {
             object = parser.parse(new InputStreamReader(in));
         } catch (ParseException e) {
             throw new IOException("Invalid json content in build_meta.json", e);
+        } finally {
+            in.close();
         }
         if (!(object instanceof JSONObject)) throw new IOException("build_meta.json did not contain a valid json body");
         JSONObject jsonObject = (JSONObject) object;

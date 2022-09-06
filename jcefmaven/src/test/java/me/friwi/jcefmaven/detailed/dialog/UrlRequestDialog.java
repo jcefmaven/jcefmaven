@@ -4,11 +4,14 @@
 
 package me.friwi.jcefmaven.detailed.dialog;
 
-import java.awt.BorderLayout;
-import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
+import org.cef.network.CefPostData;
+import org.cef.network.CefPostDataElement;
+import org.cef.network.CefRequest;
+import org.cef.network.CefRequest.CefUrlRequestFlags;
+
+import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -17,25 +20,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.Vector;
-
-import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.table.AbstractTableModel;
-
-import org.cef.network.CefPostData;
-import org.cef.network.CefPostDataElement;
-import org.cef.network.CefRequest;
-import org.cef.network.CefRequest.CefUrlRequestFlags;
 
 @SuppressWarnings("serial")
 public class UrlRequestDialog extends JDialog {
@@ -46,96 +30,6 @@ public class UrlRequestDialog extends JDialog {
     private final JTextField urlField;
     private final JTextField cookieUrl;
     private final Frame owner_;
-
-    private CefRequest createRequest() {
-        String url = urlField.getText();
-        if (url.isEmpty() || url.trim().equalsIgnoreCase("http://")) {
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    JOptionPane.showMessageDialog(owner_,
-                            "Please specify at least an URL. Otherwise the CefRequest is invalid");
-                }
-            });
-            return null;
-        }
-
-        CefRequest request = CefRequest.create();
-        if (request == null) return null;
-
-        String firstPartyForCookie = cookieUrl.getText();
-        if (firstPartyForCookie.isEmpty() || firstPartyForCookie.trim().equalsIgnoreCase("http://"))
-            firstPartyForCookie = url;
-
-        String method = "GET";
-        for (int i = 0; i < requestMethods.size(); i++) {
-            JRadioButton button = requestMethods.get(i);
-            if (button.isSelected()) {
-                method = button.getText();
-                break;
-            }
-        }
-
-        CefPostData postData = null;
-        int postDataRows = postDataModel.getRowCount();
-        if (postDataRows > 0) {
-            postData = CefPostData.create();
-        } else if (method.equalsIgnoreCase("POST") || method.equalsIgnoreCase("PUT")) {
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    JOptionPane.showMessageDialog(
-                            owner_, "The methods POST and PUT require at least one row of data.");
-                }
-            });
-            return null;
-        }
-
-        if (postData != null) {
-            for (int i = 0; i < postDataRows; i++) {
-                String value = (String) postDataModel.getValueAt(i, 0);
-                if (value.trim().isEmpty()) continue;
-
-                CefPostDataElement elem = CefPostDataElement.create();
-                if (elem != null) {
-                    File f = new File(value);
-                    if (f.isFile()) {
-                        elem.setToFile(value);
-                    } else {
-                        byte[] byteStr = value.getBytes();
-                        elem.setToBytes(byteStr.length, byteStr);
-                    }
-                    postData.addElement(elem);
-                }
-            }
-        }
-
-        Map<String, String> headerMap = null;
-        int headerRows = headerTblModel.getRowCount();
-        if (headerRows > 0) {
-            headerMap = new HashMap<>();
-            for (int i = 0; i < headerRows; i++) {
-                String key = (String) headerTblModel.getValueAt(i, 0);
-                String value = (String) headerTblModel.getValueAt(i, 1);
-                if (key.trim().isEmpty()) continue;
-
-                headerMap.put(key, value);
-            }
-        }
-
-        int flags = 0;
-        Set<Entry<JCheckBox, Integer>> entrySet = requestFlags.entrySet();
-        for (Entry<JCheckBox, Integer> entry : entrySet) {
-            if (entry.getKey().isSelected()) {
-                flags |= entry.getValue();
-            }
-        }
-
-        request.set(url, method, postData, headerMap);
-        request.setFirstPartyForCookies(firstPartyForCookie);
-        request.setFlags(flags);
-        return request;
-    }
 
     public UrlRequestDialog(Frame owner, String title) {
         super(owner, title, false);
@@ -248,6 +142,96 @@ public class UrlRequestDialog extends JDialog {
         add(bottomPanel, BorderLayout.PAGE_END);
     }
 
+    private CefRequest createRequest() {
+        String url = urlField.getText();
+        if (url.isEmpty() || url.trim().equalsIgnoreCase("http://")) {
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    JOptionPane.showMessageDialog(owner_,
+                            "Please specify at least an URL. Otherwise the CefRequest is invalid");
+                }
+            });
+            return null;
+        }
+
+        CefRequest request = CefRequest.create();
+        if (request == null) return null;
+
+        String firstPartyForCookie = cookieUrl.getText();
+        if (firstPartyForCookie.isEmpty() || firstPartyForCookie.trim().equalsIgnoreCase("http://"))
+            firstPartyForCookie = url;
+
+        String method = "GET";
+        for (int i = 0; i < requestMethods.size(); i++) {
+            JRadioButton button = requestMethods.get(i);
+            if (button.isSelected()) {
+                method = button.getText();
+                break;
+            }
+        }
+
+        CefPostData postData = null;
+        int postDataRows = postDataModel.getRowCount();
+        if (postDataRows > 0) {
+            postData = CefPostData.create();
+        } else if (method.equalsIgnoreCase("POST") || method.equalsIgnoreCase("PUT")) {
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    JOptionPane.showMessageDialog(
+                            owner_, "The methods POST and PUT require at least one row of data.");
+                }
+            });
+            return null;
+        }
+
+        if (postData != null) {
+            for (int i = 0; i < postDataRows; i++) {
+                String value = (String) postDataModel.getValueAt(i, 0);
+                if (value.trim().isEmpty()) continue;
+
+                CefPostDataElement elem = CefPostDataElement.create();
+                if (elem != null) {
+                    File f = new File(value);
+                    if (f.isFile()) {
+                        elem.setToFile(value);
+                    } else {
+                        byte[] byteStr = value.getBytes();
+                        elem.setToBytes(byteStr.length, byteStr);
+                    }
+                    postData.addElement(elem);
+                }
+            }
+        }
+
+        Map<String, String> headerMap = null;
+        int headerRows = headerTblModel.getRowCount();
+        if (headerRows > 0) {
+            headerMap = new HashMap<>();
+            for (int i = 0; i < headerRows; i++) {
+                String key = (String) headerTblModel.getValueAt(i, 0);
+                String value = (String) headerTblModel.getValueAt(i, 1);
+                if (key.trim().isEmpty()) continue;
+
+                headerMap.put(key, value);
+            }
+        }
+
+        int flags = 0;
+        Set<Entry<JCheckBox, Integer>> entrySet = requestFlags.entrySet();
+        for (Entry<JCheckBox, Integer> entry : entrySet) {
+            if (entry.getKey().isSelected()) {
+                flags |= entry.getValue();
+            }
+        }
+
+        request.set(url, method, postData, headerMap);
+        request.setFirstPartyForCookies(firstPartyForCookie);
+        request.setFlags(flags);
+        return request;
+    }
+
     private void addRequestMode(
             JPanel panel, ButtonGroup buttonGrp, String requestMode, boolean selected) {
         JRadioButton button = new JRadioButton(requestMode, selected);
@@ -308,16 +292,16 @@ public class UrlRequestDialog extends JDialog {
 
     private class TableModel extends AbstractTableModel {
         private final String[] columnNames;
-        private Vector<Object[]> rowData = new Vector<>();
         private final boolean hasKeyColumn_;
+        private Vector<Object[]> rowData = new Vector<>();
 
         public TableModel(boolean hasKeyColumn) {
             super();
             hasKeyColumn_ = hasKeyColumn;
             if (hasKeyColumn)
-                columnNames = new String[] {"Key", "Value", ""};
+                columnNames = new String[]{"Key", "Value", ""};
             else
-                columnNames = new String[] {"Value", ""};
+                columnNames = new String[]{"Value", ""};
         }
 
         public void newDefaultEntry() {

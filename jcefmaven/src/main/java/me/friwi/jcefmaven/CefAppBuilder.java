@@ -37,7 +37,7 @@ import java.util.zip.ZipInputStream;
  * builder.setProgressHandler(new ConsoleProgressHandler()); //Default
  * builder.addJCefArgs("--disable-gpu"); //Just an example
  * builder.getCefSettings().windowless_rendering_enabled = true; //Default - select OSR mode
- * 
+ *
  * //Set an app handler. Do not use CefApp.addAppHandler(...), it will break your code on MacOSX!
  * builder.setAppHandler(new MavenCefAppHandlerAdapter(){...});
  *
@@ -54,10 +54,10 @@ public class CefAppBuilder {
     private static final List<String> DEFAULT_JCEF_ARGS = new LinkedList<>();
     private static final CefSettings DEFAULT_CEF_SETTINGS = new CefSettings();
     private final Object lock = new Object();
-    private File installDir;
-    private IProgressHandler progressHandler;
     private final List<String> jcefArgs;
     private final CefSettings cefSettings;
+    private File installDir;
+    private IProgressHandler progressHandler;
     private CefApp instance = null;
     private boolean building = false;
     private Set<String> mirrors;

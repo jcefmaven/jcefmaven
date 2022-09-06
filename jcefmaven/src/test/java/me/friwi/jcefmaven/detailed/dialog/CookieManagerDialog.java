@@ -4,25 +4,18 @@
 
 package me.friwi.jcefmaven.detailed.dialog;
 
-import java.awt.BorderLayout;
-import java.awt.Frame;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Date;
-import java.util.Vector;
-
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
-
 import org.cef.callback.CefCookieVisitor;
 import org.cef.misc.BoolRef;
 import org.cef.network.CefCookie;
 import org.cef.network.CefCookieManager;
+
+import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Date;
+import java.util.Vector;
 
 @SuppressWarnings("serial")
 public class CookieManagerDialog extends JDialog {
@@ -88,7 +81,7 @@ public class CookieManagerDialog extends JDialog {
 
         public CookieTableModel() {
             super();
-            columnNames = new String[] {"Name", "Value", "Domain", "Path", "Secure", "HTTP only",
+            columnNames = new String[]{"Name", "Value", "Domain", "Path", "Secure", "HTTP only",
                     "Created", "Last Access", "Expires"};
         }
 

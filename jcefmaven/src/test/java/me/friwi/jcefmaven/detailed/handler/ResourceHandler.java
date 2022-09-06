@@ -1,17 +1,15 @@
 package me.friwi.jcefmaven.detailed.handler;
 
-import java.nio.ByteBuffer;
-
 import org.cef.callback.CefCallback;
-import org.cef.handler.CefLoadHandler;
 import org.cef.handler.CefResourceHandlerAdapter;
 import org.cef.misc.IntRef;
 import org.cef.misc.StringRef;
 import org.cef.network.CefRequest;
 import org.cef.network.CefResponse;
 
+import java.nio.ByteBuffer;
+
 public class ResourceHandler extends CefResourceHandlerAdapter {
-    private int startPos = 0;
     private static final String html = new String("<html>\n"
             + "  <head>\n"
             + "    <title>ResourceHandler Test</title>\n"
@@ -23,6 +21,7 @@ public class ResourceHandler extends CefResourceHandlerAdapter {
             + "    <p>See class <u>tests.handler.ResourceHandler</u> and the <u>RequestHandler</u> implementation for details.</p>\n"
             + "  </body>\n"
             + "</html>");
+    private int startPos = 0;
 
     @Override
     public boolean processRequest(CefRequest request, CefCallback callback) {

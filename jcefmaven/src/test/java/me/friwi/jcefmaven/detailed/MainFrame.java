@@ -5,14 +5,14 @@
 package me.friwi.jcefmaven.detailed;
 
 import me.friwi.jcefmaven.CefAppBuilder;
+import me.friwi.jcefmaven.CefInitializationException;
+import me.friwi.jcefmaven.UnsupportedPlatformException;
 import me.friwi.jcefmaven.detailed.dialog.DownloadDialog;
 import me.friwi.jcefmaven.detailed.handler.*;
 import me.friwi.jcefmaven.detailed.ui.ControlPanel;
 import me.friwi.jcefmaven.detailed.ui.MenuBar;
 import me.friwi.jcefmaven.detailed.ui.StatusPanel;
 import me.friwi.jcefmaven.detailed.util.DataUri;
-import me.friwi.jcefmaven.CefInitializationException;
-import me.friwi.jcefmaven.UnsupportedPlatformException;
 import org.cef.CefApp;
 import org.cef.CefApp.CefVersion;
 import org.cef.CefClient;
@@ -24,44 +24,15 @@ import org.cef.handler.CefFocusHandlerAdapter;
 import org.cef.handler.CefLoadHandlerAdapter;
 import org.cef.network.CefCookieManager;
 
-import java.awt.BorderLayout;
-import java.awt.KeyboardFocusManager;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.io.IOException;
 import java.util.Arrays;
 
-import javax.swing.JPanel;
-
 public class MainFrame extends BrowserFrame {
     private static final long serialVersionUID = -2295538706810864538L;
-    public static void main(String[] args) throws UnsupportedPlatformException, CefInitializationException, IOException, InterruptedException {
-        // OSR mode is enabled by default on Linux.
-        // and disabled by default on Windows and Mac OS X.
-        boolean osrEnabledArg = false;
-        boolean transparentPaintingEnabledArg = false;
-        boolean createImmediately = false;
-        for (String arg : args) {
-            arg = arg.toLowerCase();
-            if (arg.equals("--off-screen-rendering-enabled")) {
-                osrEnabledArg = true;
-            } else if (arg.equals("--transparent-painting-enabled")) {
-                transparentPaintingEnabledArg = true;
-            } else if (arg.equals("--create-immediately")) {
-                createImmediately = true;
-            }
-        }
-
-        System.out.println("Offscreen rendering " + (osrEnabledArg ? "enabled" : "disabled"));
-
-        // MainFrame keeps all the knowledge to display the embedded browser
-        // frame.
-        final MainFrame frame = new MainFrame(
-                osrEnabledArg, transparentPaintingEnabledArg, createImmediately, args);
-        frame.setSize(800, 600);
-        frame.setVisible(true);
-    }
-
     private final CefClient client_;
     private String errorMsg_ = "";
     private ControlPanel control_pane_;
@@ -69,9 +40,8 @@ public class MainFrame extends BrowserFrame {
     private boolean browserFocus_ = true;
     private boolean osr_enabled_;
     private boolean transparent_painting_enabled_;
-
     public MainFrame(boolean osrEnabled, boolean transparentPaintingEnabled,
-            boolean createImmediately, String[] args) throws UnsupportedPlatformException, CefInitializationException, IOException, InterruptedException {
+                     boolean createImmediately, String[] args) throws UnsupportedPlatformException, CefInitializationException, IOException, InterruptedException {
         this.osr_enabled_ = osrEnabled;
         this.transparent_painting_enabled_ = transparentPaintingEnabled;
 
@@ -150,10 +120,12 @@ public class MainFrame extends BrowserFrame {
             public void onAddressChange(CefBrowser browser, CefFrame frame, String url) {
                 control_pane_.setAddress(browser, url);
             }
+
             @Override
             public void onTitleChange(CefBrowser browser, String title) {
                 setTitle(title);
             }
+
             @Override
             public void onStatusMessage(CefBrowser browser, String value) {
                 status_panel_.setStatusText(value);
@@ -169,7 +141,7 @@ public class MainFrame extends BrowserFrame {
         client_.addLoadHandler(new CefLoadHandlerAdapter() {
             @Override
             public void onLoadingStateChange(CefBrowser browser, boolean isLoading,
-                    boolean canGoBack, boolean canGoForward) {
+                                             boolean canGoBack, boolean canGoForward) {
                 control_pane_.update(browser, isLoading, canGoBack, canGoForward);
                 status_panel_.setIsInProgress(isLoading);
 
@@ -181,7 +153,7 @@ public class MainFrame extends BrowserFrame {
 
             @Override
             public void onLoadError(CefBrowser browser, CefFrame frame, ErrorCode errorCode,
-                    String errorText, String failedUrl) {
+                                    String errorText, String failedUrl) {
                 if (errorCode != ErrorCode.ERR_NONE && errorCode != ErrorCode.ERR_ABORTED) {
                     errorMsg_ = "<html><head>";
                     errorMsg_ += "<title>Error while loading</title>";
@@ -259,6 +231,33 @@ public class MainFrame extends BrowserFrame {
                 "javachromiumembedded", "https://bitbucket.org/chromiumembedded/java-cef");
         menuBar.addBookmark("chromiumembedded", "https://bitbucket.org/chromiumembedded/cef");
         setJMenuBar(menuBar);
+    }
+
+    public static void main(String[] args) throws UnsupportedPlatformException, CefInitializationException, IOException, InterruptedException {
+        // OSR mode is enabled by default on Linux.
+        // and disabled by default on Windows and Mac OS X.
+        boolean osrEnabledArg = false;
+        boolean transparentPaintingEnabledArg = false;
+        boolean createImmediately = false;
+        for (String arg : args) {
+            arg = arg.toLowerCase();
+            if (arg.equals("--off-screen-rendering-enabled")) {
+                osrEnabledArg = true;
+            } else if (arg.equals("--transparent-painting-enabled")) {
+                transparentPaintingEnabledArg = true;
+            } else if (arg.equals("--create-immediately")) {
+                createImmediately = true;
+            }
+        }
+
+        System.out.println("Offscreen rendering " + (osrEnabledArg ? "enabled" : "disabled"));
+
+        // MainFrame keeps all the knowledge to display the embedded browser
+        // frame.
+        final MainFrame frame = new MainFrame(
+                osrEnabledArg, transparentPaintingEnabledArg, createImmediately, args);
+        frame.setSize(800, 600);
+        frame.setVisible(true);
     }
 
     private JPanel createContentPanel() {

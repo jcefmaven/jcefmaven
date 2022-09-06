@@ -9,8 +9,8 @@ import org.cef.SystemBootstrap;
 
 import java.io.File;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 /**
  * Platform dependent initialization code for JCef.
@@ -18,9 +18,9 @@ import java.util.Objects;
  * @author Fritz Windisch
  */
 public class CefInitializer {
-    
+
     private static final Logger LOGGER = Logger.getLogger(CefInitializer.class.getName());
-    
+
     private static final String JAVA_LIBRARY_PATH = "java.library.path";
 
     public static CefApp initialize(File installDir, List<String> cefArgs, CefSettings cefSettings) throws UnsupportedPlatformException, CefInitializationException {

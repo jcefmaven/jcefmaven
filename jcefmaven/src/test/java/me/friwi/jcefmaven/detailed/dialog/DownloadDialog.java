@@ -4,26 +4,18 @@
 
 package me.friwi.jcefmaven.detailed.dialog;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import org.cef.browser.CefBrowser;
 import org.cef.callback.CefBeforeDownloadCallback;
 import org.cef.callback.CefDownloadItem;
 import org.cef.callback.CefDownloadItemCallback;
 import org.cef.handler.CefDownloadHandler;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 @SuppressWarnings("serial")
 public class DownloadDialog extends JDialog implements CefDownloadHandler {
@@ -44,9 +36,27 @@ public class DownloadDialog extends JDialog implements CefDownloadHandler {
         add(downloadPanel_);
     }
 
+    @Override
+    public void onBeforeDownload(CefBrowser browser, CefDownloadItem downloadItem,
+                                 String suggestedName, CefBeforeDownloadCallback callback) {
+        callback.Continue(suggestedName, true);
+
+        DownloadObject dlObject = new DownloadObject(downloadItem, suggestedName);
+        downloadObjects_.put(downloadItem.getId(), dlObject);
+        downloadPanel_.add(dlObject);
+    }
+
+    @Override
+    public void onDownloadUpdated(
+            CefBrowser browser, CefDownloadItem downloadItem, CefDownloadItemCallback callback) {
+        DownloadObject dlObject = downloadObjects_.get(downloadItem.getId());
+        if (dlObject == null) return;
+        dlObject.update(downloadItem, callback);
+    }
+
     private class DownloadObject extends JPanel {
-        private boolean isHidden_ = true;
         private final int identifier_;
+        private boolean isHidden_ = true;
         private JLabel fileName_ = new JLabel();
         private JLabel status_ = new JLabel();
         private JButton dlAbort_ = new JButton();
@@ -140,23 +150,5 @@ public class DownloadDialog extends JDialog implements CefDownloadHandler {
                 callback.cancel();
             }
         }
-    }
-
-    @Override
-    public void onBeforeDownload(CefBrowser browser, CefDownloadItem downloadItem,
-            String suggestedName, CefBeforeDownloadCallback callback) {
-        callback.Continue(suggestedName, true);
-
-        DownloadObject dlObject = new DownloadObject(downloadItem, suggestedName);
-        downloadObjects_.put(downloadItem.getId(), dlObject);
-        downloadPanel_.add(dlObject);
-    }
-
-    @Override
-    public void onDownloadUpdated(
-            CefBrowser browser, CefDownloadItem downloadItem, CefDownloadItemCallback callback) {
-        DownloadObject dlObject = downloadObjects_.get(downloadItem.getId());
-        if (dlObject == null) return;
-        dlObject.update(downloadItem, callback);
     }
 }

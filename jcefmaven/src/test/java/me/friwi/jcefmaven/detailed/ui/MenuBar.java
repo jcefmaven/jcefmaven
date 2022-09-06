@@ -18,18 +18,9 @@ import org.cef.misc.CefPdfPrintSettings;
 import org.cef.network.CefCookieManager;
 import org.cef.network.CefRequest;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -40,47 +31,19 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRootPane;
-import javax.swing.SwingUtilities;
-
 @SuppressWarnings("serial")
 public class MenuBar extends JMenuBar {
-    class SaveAs implements CefStringVisitor {
-        private PrintWriter fileWriter_;
-
-        public SaveAs(String fName) throws FileNotFoundException, UnsupportedEncodingException {
-            fileWriter_ = new PrintWriter(fName, "UTF-8");
-        }
-
-        @Override
-        public void visit(String string) {
-            fileWriter_.write(string);
-            fileWriter_.close();
-        }
-    }
-
     private final MainFrame owner_;
     private final CefBrowser browser_;
-    private String last_selected_file_ = "";
     private final JMenu bookmarkMenu_;
     private final ControlPanel control_pane_;
     private final DownloadDialog downloadDialog_;
     private final CefCookieManager cookieManager_;
+    private String last_selected_file_ = "";
     private boolean reparentPending_ = false;
 
     public MenuBar(MainFrame owner, CefBrowser browser, ControlPanel control_pane,
-            DownloadDialog downloadDialog, CefCookieManager cookieManager) {
+                   DownloadDialog downloadDialog, CefCookieManager cookieManager) {
         owner_ = owner;
         browser_ = browser;
         control_pane_ = control_pane;
@@ -437,7 +400,7 @@ public class MenuBar extends JMenuBar {
                     final MainFrame frame = new MainFrame(OS.isLinux(), false, false, null);
                     frame.setSize(800, 600);
                     frame.setVisible(true);
-                }catch (Exception e1){
+                } catch (Exception e1) {
                     e1.printStackTrace();
                 }
             }
@@ -548,5 +511,19 @@ public class MenuBar extends JMenuBar {
 
     public void addBookmarkSeparator() {
         bookmarkMenu_.addSeparator();
+    }
+
+    class SaveAs implements CefStringVisitor {
+        private PrintWriter fileWriter_;
+
+        public SaveAs(String fName) throws FileNotFoundException, UnsupportedEncodingException {
+            fileWriter_ = new PrintWriter(fName, "UTF-8");
+        }
+
+        @Override
+        public void visit(String string) {
+            fileWriter_.write(string);
+            fileWriter_.close();
+        }
     }
 }

@@ -106,12 +106,16 @@ public class PackageDownloader {
     private static String loadJCefMavenVersion() throws IOException {
         JSONParser parser = new JSONParser();
         Object object;
-        try {
-            object = parser.parse(new InputStreamReader(PackageDownloader.class.getResourceAsStream("/jcefmaven_build_meta.json")));
+        try (InputStream in = PackageDownloader.class.getResourceAsStream("/jcefmaven_build_meta.json")) {
+            if (in == null) {
+                throw new IOException("/jcefmaven_build_meta.json not found on class path");
+            }
+            object = parser.parse(new InputStreamReader(in));
         } catch (Exception e) {
             throw new IOException("Invalid json content in jcefmaven_build_meta.json", e);
         }
-        if (!(object instanceof JSONObject)) throw new IOException("jcefmaven_build_meta.json did not contain a valid json body");
+        if (!(object instanceof JSONObject))
+            throw new IOException("jcefmaven_build_meta.json did not contain a valid json body");
         return (String) ((JSONObject) object).get("version");
     }
 }

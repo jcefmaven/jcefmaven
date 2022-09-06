@@ -11,33 +11,22 @@ import org.cef.network.CefResponse;
 import org.cef.network.CefURLRequest;
 import org.cef.network.CefURLRequest.Status;
 
-import java.awt.BorderLayout;
-import java.awt.Frame;
-import java.awt.GridLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.SwingUtilities;
-
 @SuppressWarnings("serial")
 public class UrlRequestDialogReply extends JDialog implements CefURLRequestClient {
-    private long nativeRef_ = 0;
     private final JLabel statusLabel_ = new JLabel("HTTP-Request status: ");
     private final JTextArea sentRequest_ = new JTextArea();
     private final JTextArea repliedResult_ = new JTextArea();
     private final JButton cancelButton_ = new JButton("Cancel");
-    private CefURLRequest urlRequest_ = null;
     private final Frame owner_;
+    private long nativeRef_ = 0;
+    private CefURLRequest urlRequest_ = null;
     private ByteArrayOutputStream byteStream_ = new ByteArrayOutputStream();
 
     public UrlRequestDialogReply(Frame owner, String title) {
@@ -181,7 +170,7 @@ public class UrlRequestDialogReply extends JDialog implements CefURLRequestClien
 
     @Override
     public boolean getAuthCredentials(boolean isProxy, String host, int port, String realm,
-            String scheme, CefAuthCallback callback) {
+                                      String scheme, CefAuthCallback callback) {
         SwingUtilities.invokeLater(new PasswordDialog(owner_, callback));
         return true;
     }

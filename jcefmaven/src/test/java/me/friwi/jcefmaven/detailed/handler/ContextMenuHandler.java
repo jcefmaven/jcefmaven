@@ -4,11 +4,6 @@
 
 package me.friwi.jcefmaven.detailed.handler;
 
-import java.awt.Frame;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Vector;
-
 import me.friwi.jcefmaven.detailed.dialog.SearchDialog;
 import me.friwi.jcefmaven.detailed.dialog.ShowTextDialog;
 import org.cef.browser.CefBrowser;
@@ -17,6 +12,11 @@ import org.cef.callback.CefContextMenuParams;
 import org.cef.callback.CefMenuModel;
 import org.cef.callback.CefMenuModel.MenuId;
 import org.cef.handler.CefContextMenuHandler;
+
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Vector;
 
 public class ContextMenuHandler implements CefContextMenuHandler {
     private final Frame owner_;
@@ -65,7 +65,7 @@ public class ContextMenuHandler implements CefContextMenuHandler {
 
     @Override
     public boolean onContextMenuCommand(CefBrowser browser, CefFrame frame,
-            CefContextMenuParams params, int commandId, int eventFlags) {
+                                        CefContextMenuParams params, int commandId, int eventFlags) {
         switch (commandId) {
             case MenuId.MENU_ID_VIEW_SOURCE:
                 ShowTextDialog visitor =
