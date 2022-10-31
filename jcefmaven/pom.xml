@@ -6,7 +6,7 @@
 
     <groupId>me.friwi</groupId>
     <artifactId>jcefmaven</artifactId>
-    <version>95.7.14</version>
+    <version>105.3.36.1</version>
 
     <packaging>jar</packaging>
     <name>JCef Maven</name>
@@ -49,7 +49,7 @@
         <dependency>
             <groupId>me.friwi</groupId>
             <artifactId>jcef-api</artifactId>
-            <version>jcef-7f53d6d+cef-100.0.14+g4e5ba66+chromium-100.0.4896.75</version>
+            <version>jcef-6a2f6c0+cef-105.3.36+g88e0038+chromium-105.0.5195.102</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -57,9 +57,9 @@
             <version>1.21</version>
         </dependency>
         <dependency>
-            <groupId>com.googlecode.json-simple</groupId>
-            <artifactId>json-simple</artifactId>
-            <version>1.1.1</version>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10</version>
         </dependency>
     </dependencies>
 

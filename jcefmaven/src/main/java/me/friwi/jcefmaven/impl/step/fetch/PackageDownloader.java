@@ -1,13 +1,13 @@
 package me.friwi.jcefmaven.impl.step.fetch;
 
+import com.google.gson.Gson;
 import me.friwi.jcefmaven.CefBuildInfo;
 import me.friwi.jcefmaven.EnumPlatform;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -21,6 +21,7 @@ import java.util.logging.Logger;
  * @author Fritz Windisch
  */
 public class PackageDownloader {
+    private static final Gson GSON = new Gson();
     private static final Logger LOGGER = Logger.getLogger(PackageDownloader.class.getName());
 
     private static final int BUFFER_SIZE = 16 * 1024;
@@ -104,18 +105,15 @@ public class PackageDownloader {
     }
 
     private static String loadJCefMavenVersion() throws IOException {
-        JSONParser parser = new JSONParser();
-        Object object;
+        Map object;
         try (InputStream in = PackageDownloader.class.getResourceAsStream("/jcefmaven_build_meta.json")) {
             if (in == null) {
                 throw new IOException("/jcefmaven_build_meta.json not found on class path");
             }
-            object = parser.parse(new InputStreamReader(in));
+            object = GSON.fromJson(new InputStreamReader(in), Map.class);
         } catch (Exception e) {
             throw new IOException("Invalid json content in jcefmaven_build_meta.json", e);
         }
-        if (!(object instanceof JSONObject))
-            throw new IOException("jcefmaven_build_meta.json did not contain a valid json body");
-        return (String) ((JSONObject) object).get("version");
+        return (String) object.get("version");
     }
 }

@@ -1,11 +1,12 @@
 package me.friwi.jcefmaven;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonParseException;
 import org.cef.CefApp;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -15,6 +16,7 @@ import java.util.Objects;
  * @author Fritz Windisch
  */
 public class CefBuildInfo {
+    private static final Gson GSON = new Gson();
     private static CefBuildInfo LOCAL_BUILD_INFO = null;
     private final String jcefUrl;
     private final String releaseTag;
@@ -53,26 +55,23 @@ public class CefBuildInfo {
      * @throws IOException if reading the file failed
      */
     public static CefBuildInfo fromFile(File file) throws IOException {
-        return loadData(new FileInputStream(file));
+        return loadData(Files.newInputStream(file.toPath()));
     }
 
     private static CefBuildInfo loadData(InputStream in) throws IOException {
-        JSONParser parser = new JSONParser();
-        Object object = null;
+        Map object;
         try {
-            object = parser.parse(new InputStreamReader(in));
-        } catch (ParseException e) {
+            object = GSON.fromJson(new InputStreamReader(in), Map.class);
+        } catch (JsonParseException e) {
             throw new IOException("Invalid json content in build_meta.json", e);
         } finally {
             in.close();
         }
-        if (!(object instanceof JSONObject)) throw new IOException("build_meta.json did not contain a valid json body");
-        JSONObject jsonObject = (JSONObject) object;
         return new CefBuildInfo(
-                Objects.requireNonNull(jsonObject.get("jcef_url"), "No jcef_url specified in build_meta.json").toString(),
-                Objects.requireNonNull(jsonObject.get("release_tag"), "No release_tag specified in build_meta.json").toString(),
-                Objects.requireNonNull(jsonObject.get("release_url"), "No release_url specified in build_meta.json").toString(),
-                Objects.requireNonNull(jsonObject.get("platform"), "No platform specified in build_meta.json").toString());
+                Objects.requireNonNull(object.get("jcef_url"), "No jcef_url specified in build_meta.json").toString(),
+                Objects.requireNonNull(object.get("release_tag"), "No release_tag specified in build_meta.json").toString(),
+                Objects.requireNonNull(object.get("release_url"), "No release_url specified in build_meta.json").toString(),
+                Objects.requireNonNull(object.get("platform"), "No platform specified in build_meta.json").toString());
     }
 
     public String getJcefUrl() {
