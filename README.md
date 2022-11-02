@@ -25,13 +25,13 @@ Embed a complete browser in your Java Apps - supports Java 8+</h5>
 <dependency>
     <groupId>me.friwi</groupId>
     <artifactId>jcefmaven</artifactId>
-    <version>105.3.36.1</version>
+    <version>105.3.36.2</version>
 </dependency>
 ```
 
 **Use with Gradle:**
 ```Gradle
-implementation 'me.friwi:jcefmaven:105.3.36.1'
+implementation 'me.friwi:jcefmaven:105.3.36.2'
 ```
 
 ---
