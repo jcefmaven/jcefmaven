@@ -202,8 +202,8 @@ public class CefAppBuilder {
                 }
                 return this.instance;
             }
+            this.building = true;
         }
-        this.building = true;
         this.progressHandler.handleProgress(EnumProgress.LOCATING, EnumProgress.NO_ESTIMATION);
         boolean installOk = CefInstallationChecker.checkInstallation(this.installDir);
         if (!installOk) {
