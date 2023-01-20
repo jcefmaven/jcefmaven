@@ -60,7 +60,8 @@ public class CefAppBuilder {
     private IProgressHandler progressHandler;
     private CefApp instance = null;
     private boolean building = false;
-    private Set<String> mirrors;
+    private boolean installed = false;
+    private final Set<String> mirrors;
 
     /**
      * Constructs a new CefAppBuilder instance.
@@ -177,6 +178,83 @@ public class CefAppBuilder {
     }
 
     /**
+     * Helper method to install the native libraries/resources. Useful for triggering an install ahead of actually
+     * needing to create a CEF app instance.  This method is NOT thread safe and the caller must ensure only one thread
+     * will call this method at a time.
+     *
+     * @return This builder instance
+     * @throws IOException                  if an artifact could not be fetched or IO-actions on disk failed
+     * @throws UnsupportedPlatformException if the platform is not supported
+     */
+    public CefAppBuilder install() throws IOException, UnsupportedPlatformException {
+        // check if already installed
+        if (this.installed) {
+            return this;
+        }
+        this.progressHandler.handleProgress(EnumProgress.LOCATING, EnumProgress.NO_ESTIMATION);
+        boolean installOk = CefInstallationChecker.checkInstallation(this.installDir);
+        if (!installOk) {
+            //Perform install
+            //Clear install dir
+            FileUtils.deleteDir(this.installDir);
+            if (!this.installDir.mkdirs()) throw new IOException("Could not create installation directory");
+            //Fetch a native input stream
+            InputStream nativesIn = PackageClasspathStreamer.streamNatives(
+                    CefBuildInfo.fromClasspath(), EnumPlatform.getCurrentPlatform());
+            try {
+                boolean downloading = false;
+                if (nativesIn == null) {
+                    this.progressHandler.handleProgress(EnumProgress.DOWNLOADING, EnumProgress.NO_ESTIMATION);
+                    downloading = true;
+                    File download = new File(this.installDir, "download.zip.temp");
+                    PackageDownloader.downloadNatives(
+                            CefBuildInfo.fromClasspath(), EnumPlatform.getCurrentPlatform(),
+                            download, f -> {
+                                this.progressHandler.handleProgress(EnumProgress.DOWNLOADING, f);
+                            }, mirrors);
+                    nativesIn = new ZipInputStream(new FileInputStream(download));
+                    ZipEntry entry;
+                    boolean found = false;
+                    while ((entry = ((ZipInputStream) nativesIn).getNextEntry()) != null) {
+                        if (entry.getName().endsWith(".tar.gz")) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        throw new IOException("Downloaded artifact did not contain a .tar.gz archive");
+                    }
+                }
+                //Extract a native bundle
+                this.progressHandler.handleProgress(EnumProgress.EXTRACTING, EnumProgress.NO_ESTIMATION);
+                TarGzExtractor.extractTarGZ(this.installDir, nativesIn);
+                if (downloading) {
+                    if (!new File(this.installDir, "download.zip.temp").delete()) {
+                        throw new IOException("Could not remove downloaded temp file");
+                    }
+                }
+            } finally {
+                // make sure nativesIn is closed if any of the above fails
+                if (nativesIn != null) {
+                    nativesIn.close();
+                }
+            }
+            //Install native bundle
+            this.progressHandler.handleProgress(EnumProgress.INSTALL, EnumProgress.NO_ESTIMATION);
+            //Remove quarantine on macosx
+            if (EnumPlatform.getCurrentPlatform().getOs().isMacOSX()) {
+                UnquarantineUtil.unquarantine(this.installDir);
+            }
+            //Lock installation
+            if (!(new File(installDir, "install.lock").createNewFile())) {
+                throw new IOException("Could not create install.lock to complete installation");
+            }
+        }
+        this.installed = true;
+        return this;
+    }
+
+    /**
      * Builds a {@link org.cef.CefApp} instance. When called multiple times,
      * will return the previously built instance. This method is thread-safe.
      *
@@ -204,58 +282,7 @@ public class CefAppBuilder {
             }
             this.building = true;
         }
-        this.progressHandler.handleProgress(EnumProgress.LOCATING, EnumProgress.NO_ESTIMATION);
-        boolean installOk = CefInstallationChecker.checkInstallation(this.installDir);
-        if (!installOk) {
-            //Perform install
-            //Clear install dir
-            FileUtils.deleteDir(this.installDir);
-            if (!this.installDir.mkdirs()) throw new IOException("Could not create installation directory");
-            //Fetch a native input stream
-            InputStream nativesIn = PackageClasspathStreamer.streamNatives(
-                    CefBuildInfo.fromClasspath(), EnumPlatform.getCurrentPlatform());
-            boolean downloading = false;
-            if (nativesIn == null) {
-                this.progressHandler.handleProgress(EnumProgress.DOWNLOADING, EnumProgress.NO_ESTIMATION);
-                downloading = true;
-                File download = new File(this.installDir, "download.zip.temp");
-                PackageDownloader.downloadNatives(
-                        CefBuildInfo.fromClasspath(), EnumPlatform.getCurrentPlatform(),
-                        download, f -> {
-                            this.progressHandler.handleProgress(EnumProgress.DOWNLOADING, f);
-                        }, mirrors);
-                nativesIn = new ZipInputStream(new FileInputStream(download));
-                ZipEntry entry;
-                boolean found = false;
-                while ((entry = ((ZipInputStream) nativesIn).getNextEntry()) != null) {
-                    if (entry.getName().endsWith(".tar.gz")) {
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found) {
-                    throw new IOException("Downloaded artifact did not contain a .tar.gz archive");
-                }
-            }
-            //Extract a native bundle
-            this.progressHandler.handleProgress(EnumProgress.EXTRACTING, EnumProgress.NO_ESTIMATION);
-            TarGzExtractor.extractTarGZ(this.installDir, nativesIn);
-            if (downloading) {
-                if (!new File(this.installDir, "download.zip.temp").delete()) {
-                    throw new IOException("Could not remove downloaded temp file");
-                }
-            }
-            //Install native bundle
-            this.progressHandler.handleProgress(EnumProgress.INSTALL, EnumProgress.NO_ESTIMATION);
-            //Remove quarantine on macosx
-            if (EnumPlatform.getCurrentPlatform().getOs().isMacOSX()) {
-                UnquarantineUtil.unquarantine(this.installDir);
-            }
-            //Lock installation
-            if (!(new File(installDir, "install.lock").createNewFile())) {
-                throw new IOException("Could not create install.lock to complete installation");
-            }
-        }
+        this.install();
         this.progressHandler.handleProgress(EnumProgress.INITIALIZING, EnumProgress.NO_ESTIMATION);
         synchronized (lock) {
             //Setting the instance has to occur in the synchronized block
