@@ -2,7 +2,7 @@
 FROM debian:bookworm-slim
 
 #Required packages
-ENV TOOLS ca-certificates curl jq zip unzip p7zip-full git openjdk-11-jdk maven
+ENV TOOLS ca-certificates curl jq zip unzip p7zip-full git openjdk-17-jdk maven
 
 #Step 2: Install tools
 RUN apt-get -q update && \
