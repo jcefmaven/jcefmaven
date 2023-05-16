@@ -94,7 +94,7 @@ public class CefAppBuilder {
      * @param progressHandler a progress handler to use
      */
     public void setProgressHandler(IProgressHandler progressHandler) {
-        Objects.requireNonNull(installDir, "progressHandler cannot be null");
+        Objects.requireNonNull(progressHandler, "progressHandler cannot be null");
         this.progressHandler = progressHandler;
     }
 
