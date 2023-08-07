@@ -178,6 +178,24 @@ public class CefAppBuilder {
     }
 
     /**
+     * If installation skipping is enabled, no checks against the installation directory will be performed and the download,
+     * installation and verification of the jcef natives has to be performed by the individual developer.
+     * @param skipInstallation true if the installation process should be skipped, false otherwise
+     */
+    public void setSkipInstallation(boolean skipInstallation) {
+        this.installed = skipInstallation;
+    }
+
+    /**
+     * If installation skipping is enabled, no checks against the installation directory will be performed and the download,
+     * installation and verification of the jcef natives has to be performed by the individual developer.
+     * @return true if the installation process should be skipped, false otherwise
+     */
+    public boolean getSkipInstallation(){
+        return this.installed;
+    }
+
+    /**
      * Helper method to install the native libraries/resources. Useful for triggering an install ahead of actually
      * needing to create a CEF app instance.  This method is NOT thread safe and the caller must ensure only one thread
      * will call this method at a time.
