@@ -105,5 +105,5 @@ To use OSR (off-screen render) mode, add these flags for JOGL:
 
 ## Reporting bugs
 Please only report bugs here that are related to the maven artifacts.
-Please report bugs in JCEF/CEF to the [corresponding repository on Bitbucket](https://bitbucket.org/chromiumembedded/).
+Please report bugs in JCEF/CEF to the [corresponding repository](https://github.com/chromiumembedded/).
 
