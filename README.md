@@ -25,13 +25,13 @@ Embed a complete browser in your Java Apps - supports Java 8+</h5>
 <dependency>
     <groupId>me.friwi</groupId>
     <artifactId>jcefmaven</artifactId>
-    <version>116.0.19.1</version>
+    <version>122.1.10</version>
 </dependency>
 ```
 
 **Use with Gradle:**
 ```Gradle
-implementation 'me.friwi:jcefmaven:116.0.19.1'
+implementation 'me.friwi:jcefmaven:122.1.10'
 ```
 
 ---
@@ -105,5 +105,5 @@ To use OSR (off-screen render) mode, add these flags for JOGL:
 
 ## Reporting bugs
 Please only report bugs here that are related to the maven artifacts.
-Please report bugs in JCEF/CEF to the [corresponding repository](https://github.com/chromiumembedded/).
+Please report bugs in JCEF/CEF to the [corresponding repository on Bitbucket](https://bitbucket.org/chromiumembedded/).
 
