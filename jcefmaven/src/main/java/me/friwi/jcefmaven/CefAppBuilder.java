@@ -61,7 +61,7 @@ public class CefAppBuilder {
     private CefApp instance = null;
     private boolean building = false;
     private boolean installed = false;
-    private final Set<String> mirrors;
+    private final List<String> mirrors;
 
     /**
      * Constructs a new CefAppBuilder instance.
@@ -72,7 +72,7 @@ public class CefAppBuilder {
         jcefArgs = new LinkedList<>();
         jcefArgs.addAll(DEFAULT_JCEF_ARGS);
         cefSettings = DEFAULT_CEF_SETTINGS.clone();
-        mirrors = new HashSet<>();
+        mirrors = new ArrayList<>();
         mirrors.add("https://github.com/jcefmaven/jcefmaven/releases/download/{mvn_version}/jcef-natives-{platform}-{tag}.jar");
         mirrors.add("https://repo.maven.apache.org/maven2/me/friwi/jcef-natives-{platform}/{tag}/jcef-natives-{platform}-{tag}.jar");
     }
@@ -160,7 +160,7 @@ public class CefAppBuilder {
      * @return A copy of all mirrors that are currently in use. First element will be attempted first.
      */
     public Collection<String> getMirrors() {
-        return new HashSet<>(mirrors);
+        return new ArrayList<>(mirrors);
     }
 
     /**
@@ -227,9 +227,8 @@ public class CefAppBuilder {
                     File download = new File(this.installDir, "download.zip.temp");
                     PackageDownloader.downloadNatives(
                             CefBuildInfo.fromClasspath(), EnumPlatform.getCurrentPlatform(),
-                            download, f -> {
-                                this.progressHandler.handleProgress(EnumProgress.DOWNLOADING, f);
-                            }, mirrors);
+                            download, f -> this.progressHandler.handleProgress(EnumProgress.DOWNLOADING, f),
+                            getMirrors());
                     nativesIn = new ZipInputStream(new FileInputStream(download));
                     ZipEntry entry;
                     boolean found = false;

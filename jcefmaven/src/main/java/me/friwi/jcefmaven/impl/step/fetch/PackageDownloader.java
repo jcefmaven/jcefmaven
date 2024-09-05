@@ -7,9 +7,9 @@ import me.friwi.jcefmaven.EnumPlatform;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,7 +27,7 @@ public class PackageDownloader {
     private static final int BUFFER_SIZE = 16 * 1024;
 
     public static void downloadNatives(CefBuildInfo info, EnumPlatform platform, File destination,
-                                       Consumer<Float> progressConsumer, Set<String> mirrors) throws IOException {
+                                       Consumer<Float> progressConsumer, Collection<String> mirrors) throws IOException {
         Objects.requireNonNull(info, "info cannot be null");
         Objects.requireNonNull(platform, "platform cannot be null");
         Objects.requireNonNull(destination, "destination cannot be null");
