@@ -19,4 +19,4 @@ cd "$( dirname "$0" )"
 rm -rf out
 
 #Run docker build
-docker compose docker-compose.yml up
+docker compose -f docker-compose.yml up
