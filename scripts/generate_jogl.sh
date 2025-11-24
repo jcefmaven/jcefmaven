@@ -36,7 +36,7 @@ curl -s -L -o $1-natives-windows-i586.jar $jogl_download/$1-natives-windows-i586
 echo "Extracting..."
 set +e
 unzip '*.jar'
-rm '*.jar'
+rm *.jar
 set -e
 
 #Remove meta-inf as it contains wrong hashes
