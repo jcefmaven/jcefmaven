@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 #CD to base dir of this repository
 cd "$( dirname "$0" )" && cd ..

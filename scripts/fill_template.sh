@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 if [ ! $# -eq 2 ]
   then
