@@ -31,7 +31,7 @@ curl --request POST \
   --verbose \
   --header "Authorization: Bearer $(echo "$MAVEN_USERNAME:$MAVEN_CENTRAL_TOKEN" | base64)" \
   --form bundle=@central-bundle.zip \
-  -d "publishingType=AUTOMATIC" \
+  --form publishingType=AUTOMATIC \
   https://central.sonatype.com/api/v1/publisher/upload
 
 rm -rf me
