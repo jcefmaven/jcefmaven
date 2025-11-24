@@ -14,12 +14,12 @@
     <packaging>jar</packaging>
     <name>JCef natives for {platform}</name>
     <description>This package provides natives for the Java Chromium Embedded Framework</description>
-    <url>https://bitbucket.org/chromiumembedded/java-cef/</url>
+    <url>https://github.com/chromiumembedded/java-cef/</url>
 
     <licenses>
         <license>
             <name>BSD License</name>
-            <url>https://bitbucket.org/chromiumembedded/java-cef/src/master/LICENSE.txt</url>
+            <url>https://github.com/chromiumembedded/java-cef/blob/master/LICENSE.txt</url>
         </license>
     </licenses>
 
@@ -27,7 +27,7 @@
         <developer>
             <id>jcef</id>
             <name>JCef Team</name>
-            <url>https://bitbucket.org/chromiumembedded/java-cef/</url>
+            <url>https://github.com/chromiumembedded/java-cef/</url>
             <roles>
                 <role>developer</role>
             </roles>
@@ -50,10 +50,10 @@
     </issueManagement>
 
     <scm>
-        <connection>scm:git:https://bitbucket.org/chromiumembedded/java-cef</connection>
-        <developerConnection>scm:git:https://bitbucket.org/chromiumembedded/java-cef</developerConnection>
+        <connection>scm:git:https://github.com/chromiumembedded/java-cef</connection>
+        <developerConnection>scm:git:https://github.com/chromiumembedded/java-cef</developerConnection>
         <tag>HEAD</tag>
-        <url>https://bitbucket.org/chromiumembedded/java-cef</url>
+        <url>https://github.com/chromiumembedded/java-cef</url>
     </scm>
     
     <properties>
@@ -61,4 +61,18 @@
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.9.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

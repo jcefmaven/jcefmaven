@@ -48,16 +48,14 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-          server-id: ossrh
+          server-id: central
           server-username: MAVEN_USERNAME # env variable for username in deploy
           server-password: MAVEN_CENTRAL_TOKEN # env variable for token in deploy
           gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY2 }} # Value of the GPG private key to import (Another key, to fix cleanup errors)
           gpg-passphrase: MAVEN_GPG_PASSPHRASE # env variable for GPG private key passphrase
       - name: Publish to Apache Maven Central
-        run: chmod +x upload_artifacts.sh && ./upload_artifacts.sh ${{ github.event.inputs.build_meta }} https://oss.sonatype.org/service/local/staging/deploy/maven2/ https://repo.maven.apache.org/maven2 ossrh ${{ github.event.inputs.mvn_version }}
+        run: chmod +x upload_artifacts.sh && ./upload_artifacts.sh ${{ github.event.inputs.build_meta }} ${{ github.event.inputs.mvn_version }}
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
           MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
-      - name: Release to Apache Maven Central
-        run: chmod +x auto_release_repository.sh && ./auto_release_repository.sh "${{ secrets.MAVEN_USERNAME }}" "${{ secrets.MAVEN_CENTRAL_TOKEN }}"

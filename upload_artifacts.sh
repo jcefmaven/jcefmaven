@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if [ ! $# -eq 5 ]
+if [ ! $# -eq 2 ]
   then
-    echo "Usage: ./upload_artifacts.sh <build_meta_url> <stageRepoUrl> <releaseRepoUrl> <repo_id> <mvn_version>"
+    echo "Usage: ./upload_artifacts.sh <build_meta_url> <mvn_version>"
     echo "Release repo url should NOT end in /!"
     exit 1
 fi
@@ -11,7 +11,7 @@ fi
 cd "$( dirname "$0" )"
 
 #Set build info
-. scripts/set_build_info.sh $1 $5
+. scripts/set_build_info.sh $1 $2
 
 #Move artifacts to a non-protected folder
 rm -rf upload
@@ -21,27 +21,27 @@ cp out/* upload/
 echo "Uploading maven artifacts for $mvn_version..."
 
 #Upload Jogamp libraries
-./upload_artifact.sh $2 $3 $4 me.friwi jogl-all $jogl_build
-./upload_artifact.sh $2 $3 $4 me.friwi gluegen-rt $jogl_build
+./upload_artifact.sh me.friwi jogl-all $jogl_build
+./upload_artifact.sh me.friwi gluegen-rt $jogl_build
 
 #Upload API
-./upload_artifact.sh $2 $3 $4 me.friwi jcef-api $release_tag
+./upload_artifact.sh me.friwi jcef-api $release_tag
 
 #Upload jcefmaven
-./upload_artifact.sh $2 $3 $4 me.friwi jcefmaven $mvn_version
+./upload_artifact.sh me.friwi jcefmaven $mvn_version
 
 #Upload linux natives
-./upload_artifact.sh $2 $3 $4 me.friwi jcef-natives-linux-amd64 $release_tag
-./upload_artifact.sh $2 $3 $4 me.friwi jcef-natives-linux-arm64 $release_tag
-./upload_artifact.sh $2 $3 $4 me.friwi jcef-natives-linux-arm $release_tag
+./upload_artifact.sh me.friwi jcef-natives-linux-amd64 $release_tag
+./upload_artifact.sh me.friwi jcef-natives-linux-arm64 $release_tag
+./upload_artifact.sh me.friwi jcef-natives-linux-arm $release_tag
 
 #Upload windows natives
-./upload_artifact.sh $2 $3 $4 me.friwi jcef-natives-windows-amd64 $release_tag
-./upload_artifact.sh $2 $3 $4 me.friwi jcef-natives-windows-arm64 $release_tag
-./upload_artifact.sh $2 $3 $4 me.friwi jcef-natives-windows-i386 $release_tag
+./upload_artifact.sh me.friwi jcef-natives-windows-amd64 $release_tag
+./upload_artifact.sh me.friwi jcef-natives-windows-arm64 $release_tag
+./upload_artifact.sh me.friwi jcef-natives-windows-i386 $release_tag
 
 #Upload macosx natives
-./upload_artifact.sh $2 $3 $4 me.friwi jcef-natives-macosx-amd64 $release_tag
-./upload_artifact.sh $2 $3 $4 me.friwi jcef-natives-macosx-arm64 $release_tag
+./upload_artifact.sh me.friwi jcef-natives-macosx-amd64 $release_tag
+./upload_artifact.sh me.friwi jcef-natives-macosx-arm64 $release_tag
 
 echo "Done uploading maven artifacts!"
