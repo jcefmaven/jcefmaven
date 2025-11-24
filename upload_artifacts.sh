@@ -27,8 +27,10 @@ for file in ./upload/*
 do
   echo "Signing $file..."
   gpg --detach-sign --armor --no-tty "$file"
-  md5sum "$file" > "$file".md5
-  sha1sum "$file" > "$file".sha1
+  md5sum "$file" | awk '{ print $1 }' > "$file".md5
+  sha1sum "$file" | awk '{ print $1 }' > "$file".sha1
+  md5sum "$file".asc | awk '{ print $1 }' > "$file".asc.md5
+  sha1sum "$file".asc | awk '{ print $1 }' > "$file".asc.sha1
 done
 
 chmod +x upload_artifact.sh
