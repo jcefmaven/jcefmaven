@@ -44,7 +44,7 @@ rm -r META-INF
 
 #Compress contents
 echo "Compressing package..."
-zip -r "$1-$jogl_build.jar" '*'
+zip -r "$1-$jogl_build.jar" *
 
 #Generate a pom file
 echo "Generating pom..."
