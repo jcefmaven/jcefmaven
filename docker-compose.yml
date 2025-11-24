@@ -1,4 +1,3 @@
-version: "3"
 services:
   generate-artifacts:
     container_name: generate-artifacts
