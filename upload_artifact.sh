@@ -34,4 +34,5 @@ curl --request POST \
   -d "publishingType=AUTOMATIC" \
   https://central.sonatype.com/api/v1/publisher/upload
 
+rm -rf me
 rm central-bundle.zip
