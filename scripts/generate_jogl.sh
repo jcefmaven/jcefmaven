@@ -36,7 +36,7 @@ curl -s -L -o $1-natives-windows-i586.jar $jogl_download/$1-natives-windows-i586
 echo "Extracting..."
 set +e
 unzip '*.jar'
-rm *.jar
+rm '*.jar'
 set -e
 
 #Remove meta-inf as it contains wrong hashes
@@ -44,11 +44,11 @@ rm -r META-INF
 
 #Compress contents
 echo "Compressing package..."
-zip -r $1-$jogl_build.jar *
+zip -r "$1-$jogl_build.jar" '*'
 
 #Generate a pom file
 echo "Generating pom..."
-./../scripts/fill_template.sh ../templates/$1/pom.xml $1-$jogl_build.pom
+./../scripts/fill_template.sh "../templates/$1/pom.xml" "$1-$jogl_build.pom"
 
 #Build sources
 if [[ "$1" == "jogl-all" ]] ; then
@@ -69,7 +69,6 @@ else
    while ! (git clone "$gluegen_git" sources && cd sources && git checkout "$gluegen_commit") || (( count++ >= 5))
    do
      echo "Failed cloning sources, retrying..."
-     cd ..
      rm -rf sources
    done
    cd ..
