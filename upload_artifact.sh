@@ -19,7 +19,7 @@ cd "$( dirname "$0" )" && cd upload
 echo "Uploading $artifactId-$version..."
 rm -rf groupId
 rm -f central-bundle.zip
-mkdirs groupId/artifactId/version
+mkdir -p groupId/artifactId/version
 for file in "$artifactId-$version"*
 do
   mv "$file" groupId/artifactId/version
