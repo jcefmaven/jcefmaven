@@ -29,6 +29,8 @@ do
   gpg --detach-sign --armor --no-tty "$file"
 done
 
+chmod +x upload_artifact.sh
+
 #Check for duplicates among jogamp libraries
 metadata=$(curl -s "https://repo1.maven.org/maven2/me/friwi/jogl-all/maven-metadata.xml")
 
