@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 if [ ! $# -eq 1 ]
   then
@@ -49,9 +50,12 @@ echo "Generating pom..."
 
 #Build sources
 if [[ "$1" == "jogl-all" ]] ; then
-   git clone $jogl_git sources
-   cd sources
-   git checkout $jogl_commit
+   while ! (git clone "$jogl_git" sources && cd sources && git checkout "$jogl_commit") || (( count++ >= 5))
+   do
+     echo "Failed cloning sources, retrying..."
+     cd ..
+     rm -rf sources
+   done
    cd ..
    mkdir exp
    # Merge Sources
@@ -60,9 +64,12 @@ if [[ "$1" == "jogl-all" ]] ; then
    cp -r sources/src/nativewindow/classes/* exp
    cd exp
 else
-   git clone $gluegen_git sources
-   cd sources
-   git checkout $gluegen_commit
+   while ! (git clone "$gluegen_git" sources && cd sources && git checkout "$gluegen_commit") || (( count++ >= 5))
+   do
+     echo "Failed cloning sources, retrying..."
+     cd ..
+     rm -rf sources
+   done
    cd ..
    mkdir exp
    cp -r sources/src/java/* exp
