@@ -21,8 +21,6 @@ jobs:
         with:
           gpg_private_key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY2 }}
           passphrase: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
-      - name: Test gpg
-        run: gpg --detach-sign --armor --no-tty README.md
       - name: Create artifacts
         run: chmod +x generate_artifacts.sh && ./generate_artifacts.sh ${{ github.event.inputs.build_meta }} ${{ github.event.inputs.mvn_version }}
       - name: Set up Java for publishing to Apache Maven Central
