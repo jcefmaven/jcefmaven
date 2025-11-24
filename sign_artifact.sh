@@ -16,6 +16,8 @@ version=$3
 cd "$( dirname "$0" )" && cd upload
 
 echo "Signing $artifactId-$version..."
+GPG_TTY=$(tty)
+export GPG_TTY
 for file in $artifactId-$version.jar $artifactId-$version-sources.jar $artifactId-$version-javadoc.jar $artifactId-$version.pom
 do
   gpg --detach-sign --armor "$file"
