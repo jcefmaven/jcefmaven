@@ -55,10 +55,8 @@ if [[ "$1" == "jogl-all" ]] ; then
    while ! (git clone "$jogl_git" sources && cd sources && git checkout "$jogl_commit") || (( count++ >= 5))
    do
      echo "Failed cloning sources, retrying..."
-     cd ..
      rm -rf sources
    done
-   cd ..
    mkdir exp
    # Merge Sources
    cp -r sources/src/jogl/classes/* exp
@@ -71,7 +69,6 @@ else
      echo "Failed cloning sources, retrying..."
      rm -rf sources
    done
-   cd ..
    mkdir exp
    cp -r sources/src/java/* exp
    cd exp

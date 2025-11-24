@@ -23,14 +23,6 @@ jobs:
           passphrase: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
       - name: Create artifacts
         run: chmod +x generate_artifacts.sh && ./generate_artifacts.sh ${{ github.event.inputs.build_meta }} ${{ github.event.inputs.mvn_version }}
-      - name: Set up Java for publishing to Apache Maven Central
-        uses: actions/setup-java@v3
-        with:
-          java-version: '11'
-          distribution: 'adopt'
-          server-id: central
-          server-username: MAVEN_USERNAME # env variable for username in deploy
-          server-password: MAVEN_CENTRAL_TOKEN # env variable for token in deploy
       - name: Publish to Apache Maven Central
         run: chmod +x upload_artifacts.sh && ./upload_artifacts.sh ${{ github.event.inputs.build_meta }} ${{ github.event.inputs.mvn_version }}
         env:
