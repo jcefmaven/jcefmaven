@@ -1,0 +1,26 @@
+language: java
+jdk:
+  - openjdk11
+install: true
+script:
+  - chmod +x generate_artifacts.sh && ./generate_artifacts.sh ${TRAVIS_BUILD_NUMBER} ${TRAVIS_JDK_VERSION}
+  - chmod +x upload_artifacts.sh && ./upload_artifacts.sh ${TRAVIS_BUILD_NUMBER} ${TRAVIS_JDK_VERSION}
+  - chmod +x update_readme.sh && ./update_readme.sh ${TRAVIS_BUILD_NUMBER} ${TRAVIS_JDK_VERSION}
+  - cd scripts
+  - chmod +x create_release_info.sh
+  - ./create_release_info.sh ${TRAVIS_BUILD_NUMBER} ${TRAVIS_BUILD_URL} ${TRAVIS_BUILD_NUMBER} ${TRAVIS_JDK_VERSION}
+  - gh release create ${TRAVIS_BUILD_NUMBER} --title "${TRAVIS_BUILD_NUMBER}" --notes-file release_info/release_message.md -Y
+  - gh release upload ${TRAVIS_BUILD_NUMBER} release_info/build_meta.json -Y
+  - cd out
+  - gh release upload ${TRAVIS_BUILD_NUMBER} $(find . -type f -name "*.jar" -printf "%p ") -Y
+env:
+  global:
+    - secure: <secure_key>
+    - secure: <secure_key>
+    - secure: <secure_key>
+notifications:
+  email:
+    recipients:
+      - notif.apache.maven.release@lists.apache.org
+    on_success: change # default: change
+    on_failure: always # default: always
