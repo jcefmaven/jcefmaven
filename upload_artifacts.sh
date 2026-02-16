@@ -41,8 +41,6 @@ metadata=$(curl -s "https://repo1.maven.org/maven2/me/friwi/jogl-all/maven-metad
 if echo "$metadata" | grep -q "<version>$jogl_build</version>"; then
   # Skip jogamp uploading, version already exists
   echo "Jogamp version already exists on central - skipping!"
-  rm jogl-all*
-  rm gluegen-rt*
 else
   #Upload Jogamp libraries
   ./upload_artifact.sh me.friwi jogl-all $jogl_build
