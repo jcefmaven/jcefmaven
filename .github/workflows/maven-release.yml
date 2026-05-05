@@ -19,7 +19,7 @@ jobs:
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
         with:
-          gpg_private_key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY2 }}
+          gpg_private_key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
       - name: Create artifacts
         run: chmod +x generate_artifacts.sh && ./generate_artifacts.sh ${{ github.event.inputs.build_meta }} ${{ github.event.inputs.mvn_version }}
